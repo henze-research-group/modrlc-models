@@ -1,4 +1,4 @@
-within ;
+within som3;
 model wrapped "Wrapped model"
   model SOM3 "Spawn of Energy+ for BOPTEST"
 
@@ -835,7 +835,7 @@ model wrapped "Wrapped model"
       nPorts=2)
       annotation (Placement(transformation(extent={{100,64},{140,104}})));
     inner Buildings.ThermalZones.EnergyPlus.Building building(
-        generatePortableFMU=true, verbosity=Buildings.ThermalZones.EnergyPlus.Types.Verbosity.Verbose)
+      generatePortableFMU=true, verbosity=Buildings.ThermalZones.EnergyPlus.Types.Verbosity.Verbose)
       "Building model"
       annotation (Placement(transformation(extent={{112,142},{132,162}})));
 
@@ -1109,8 +1109,9 @@ model wrapped "Wrapped model"
         index=1,
         extent={{6,3},{6,3}},
         horizontalAlignment=TextAlignment.Left));
-    connect(schedule.Hour, calTim.hour) annotation (Line(points={{-434.186,110.8},
-            {-446,110.8},{-446,110},{-452,110},{-452,108.24},{-458.4,108.24}},
+    connect(schedule.Hour, calTim.hour) annotation (Line(points={{-434.186,
+            110.8},{-446,110.8},{-446,110},{-452,110},{-452,108.24},{-458.4,
+            108.24}},
           color={255,127,0}));
     connect(calTim.weekDay, schedule.Day) annotation (Line(points={{-458.4,91.6},
             {-456,91.6},{-456,92},{-452,92},{-452,101.2},{-434.018,101.2}},
@@ -1139,34 +1140,40 @@ model wrapped "Wrapped model"
     connect(mul.y, zon.qGai_flow)
       annotation (Line(points={{-99,176},{98,176},{98,94}}, color={0,0,127}));
     connect(system3CAV.port_outside_outlet, out.ports[2]) annotation (Line(
-          points={{-69.2634,-64.4364},{-253.632,-64.4364},{-253.632,-42},{-430,-42}},
+          points={{-69.2634,-64.4364},{-253.632,-64.4364},{-253.632,-42},{-430,
+            -42}},
           color={0,127,255}));
     connect(system3CAV.port_supply, zon.ports[1]) annotation (Line(points={{7.26341,
             -53.0909},{66,-53.0909},{66,0},{86,0},{86,64.9},{118,64.9}}, color={
             0,127,255}));
     connect(system3CAV.port_return, zon.ports[2]) annotation (Line(points={{7.4439,
             -63.9636},{122,-63.9636},{122,64.9}}, color={0,127,255}));
-    connect(system3CAV.T_OutsideAir, weaBus.TDryBul) annotation (Line(points={{-70.5268,
-            -22.1273},{-374,-22.1273},{-374,-12},{-460,-12},{-460,-40},{-492,-40}},
+    connect(system3CAV.T_OutsideAir, weaBus.TDryBul) annotation (Line(points={{
+            -70.5268,-22.1273},{-374,-22.1273},{-374,-12},{-460,-12},{-460,-40},
+            {-492,-40}},
           color={0,0,127}), Text(
         string="%second",
         index=1,
         extent={{-6,3},{-6,3}},
         horizontalAlignment=TextAlignment.Right));
-    connect(cAVControlv2_1.isDay, schedule.isDay) annotation (Line(points={{-70.1933,
-            76.8444},{-178,76.8444},{-178,112},{-246,112},{-246,111.486},{-355.477,
-            111.486}}, color={255,0,255}));
+    connect(cAVControlv2_1.isDay, schedule.isDay) annotation (Line(points={{
+            -70.1933,76.8444},{-178,76.8444},{-178,112},{-246,112},{-246,
+            111.486},{-355.477,111.486}},
+                       color={255,0,255}));
     connect(cAVControlv2_1.isNight, schedule.isNight) annotation (Line(points={{
-            -70.1933,65.5667},{-187.8,65.5667},{-187.8,105.543},{-355.645,105.543}},
+            -70.1933,65.5667},{-187.8,65.5667},{-187.8,105.543},{-355.645,
+            105.543}},
           color={255,0,255}));
-    connect(cAVControlv2_1.isSunday, schedule.isSunday) annotation (Line(points=
-           {{-70.1933,52.0333},{-199.8,52.0333},{-199.8,98.9143},{-355.814,98.9143}},
+    connect(cAVControlv2_1.isSunday, schedule.isSunday) annotation (Line(points={{
+            -70.1933,52.0333},{-199.8,52.0333},{-199.8,98.9143},{-355.814,
+            98.9143}},
           color={255,0,255}));
     connect(cAVControlv2_1.HR_return, system3CAV.HR) annotation (Line(points={{-58.6,
             19.1667},{-58.6,6.2611},{-56.6293,6.2611},{-56.6293,-14.8}}, color={
             0,0,127}));
-    connect(cAVControlv2_1.T_OA, system3CAV.TOA) annotation (Line(points={{-50.7067,
-            18.8444},{-50.7067,6.4222},{-49.4098,6.4222},{-49.4098,-15.2727}},
+    connect(cAVControlv2_1.T_OA, system3CAV.TOA) annotation (Line(points={{
+            -50.7067,18.8444},{-50.7067,6.4222},{-49.4098,6.4222},{-49.4098,
+            -15.2727}},
           color={0,0,127}));
     connect(cAVControlv2_1.T_mixed, system3CAV.TM) annotation (Line(points={{-42.32,
             18.8444},{-42.32,8.4222},{-43.2732,8.4222},{-43.2732,-15.0364}},
@@ -1219,58 +1226,75 @@ model wrapped "Wrapped model"
           points={{-83.2634,-722.436},{-254.632,-722.436},{-254.632,-717},{-424,
             -717}}, color={0,127,255}));
     connect(system3CAV.T_OutsideAir, system3CAV1.T_OutsideAir) annotation (Line(
-          points={{-70.5268,-22.1273},{-374,-22.1273},{-374,-12},{-398,-12},{-398,
-            -184.127},{-74.5268,-184.127}}, color={0,0,127}));
+          points={{-70.5268,-22.1273},{-374,-22.1273},{-374,-12},{-398,-12},{
+            -398,-184.127},{-74.5268,-184.127}},
+                                            color={0,0,127}));
     connect(system3CAV2.T_OutsideAir, system3CAV1.T_OutsideAir) annotation (
-        Line(points={{-76.5268,-352.127},{-398,-352.127},{-398,-184.127},{-74.5268,
-            -184.127}}, color={0,0,127}));
+        Line(points={{-76.5268,-352.127},{-398,-352.127},{-398,-184.127},{
+            -74.5268,-184.127}},
+                        color={0,0,127}));
     connect(system3CAV3.T_OutsideAir, system3CAV1.T_OutsideAir) annotation (
-        Line(points={{-78.5268,-518.127},{-398,-518.127},{-398,-184.127},{-74.5268,
-            -184.127}}, color={0,0,127}));
+        Line(points={{-78.5268,-518.127},{-398,-518.127},{-398,-184.127},{
+            -74.5268,-184.127}},
+                        color={0,0,127}));
     connect(system3CAV4.T_OutsideAir, system3CAV1.T_OutsideAir) annotation (
-        Line(points={{-84.5268,-680.127},{-398,-680.127},{-398,-184.127},{-74.5268,
-            -184.127}}, color={0,0,127}));
-    connect(cAVControlv2_2.isDay, schedule.isDay) annotation (Line(points={{-72.1933,
-            -91.1556},{-72.1933,-92},{-178,-92},{-178,112},{-246,112},{-246,111.486},
-            {-355.477,111.486}}, color={255,0,255}));
+        Line(points={{-84.5268,-680.127},{-398,-680.127},{-398,-184.127},{
+            -74.5268,-184.127}},
+                        color={0,0,127}));
+    connect(cAVControlv2_2.isDay, schedule.isDay) annotation (Line(points={{
+            -72.1933,-91.1556},{-72.1933,-92},{-178,-92},{-178,112},{-246,112},
+            {-246,111.486},{-355.477,111.486}},
+                                 color={255,0,255}));
     connect(cAVControlv2_2.isNight, schedule.isNight) annotation (Line(points={{
-            -72.1933,-102.433},{-188,-102.433},{-188,66},{-187.8,66},{-187.8,105.543},
-            {-355.645,105.543}}, color={255,0,255}));
-    connect(cAVControlv2_2.isSunday, schedule.isSunday) annotation (Line(points=
-           {{-72.1933,-115.967},{-72.1933,-114},{-198,-114},{-198,52.0333},{-199.8,
-            52.0333},{-199.8,98.9143},{-355.814,98.9143}}, color={255,0,255}));
-    connect(cAVControlv2_3.isDay, schedule.isDay) annotation (Line(points={{-74.1933,
-            -259.156},{-178,-259.156},{-178,112},{-246,112},{-246,111.486},{-355.477,
-            111.486}}, color={255,0,255}));
+            -72.1933,-102.433},{-188,-102.433},{-188,66},{-187.8,66},{-187.8,
+            105.543},{-355.645,105.543}},
+                                 color={255,0,255}));
+    connect(cAVControlv2_2.isSunday, schedule.isSunday) annotation (Line(points={{
+            -72.1933,-115.967},{-72.1933,-114},{-198,-114},{-198,52.0333},{
+            -199.8,52.0333},{-199.8,98.9143},{-355.814,98.9143}},
+                                                           color={255,0,255}));
+    connect(cAVControlv2_3.isDay, schedule.isDay) annotation (Line(points={{
+            -74.1933,-259.156},{-178,-259.156},{-178,112},{-246,112},{-246,
+            111.486},{-355.477,111.486}},
+                       color={255,0,255}));
     connect(cAVControlv2_3.isNight, schedule.isNight) annotation (Line(points={{
-            -74.1933,-270.433},{-188,-270.433},{-188,66},{-187.8,66},{-187.8,105.543},
-            {-355.645,105.543}}, color={255,0,255}));
-    connect(cAVControlv2_3.isSunday, schedule.isSunday) annotation (Line(points=
-           {{-74.1933,-283.967},{-74.1933,-284},{-198,-284},{-198,52.0333},{-199.8,
-            52.0333},{-199.8,98.9143},{-355.814,98.9143}}, color={255,0,255}));
-    connect(cAVControlv2_4.isDay, schedule.isDay) annotation (Line(points={{-76.1933,
-            -425.156},{-176,-425.156},{-176,-259.156},{-178,-259.156},{-178,112},
-            {-246,112},{-246,111.486},{-355.477,111.486}}, color={255,0,255}));
+            -74.1933,-270.433},{-188,-270.433},{-188,66},{-187.8,66},{-187.8,
+            105.543},{-355.645,105.543}},
+                                 color={255,0,255}));
+    connect(cAVControlv2_3.isSunday, schedule.isSunday) annotation (Line(points={{
+            -74.1933,-283.967},{-74.1933,-284},{-198,-284},{-198,52.0333},{
+            -199.8,52.0333},{-199.8,98.9143},{-355.814,98.9143}},
+                                                           color={255,0,255}));
+    connect(cAVControlv2_4.isDay, schedule.isDay) annotation (Line(points={{
+            -76.1933,-425.156},{-176,-425.156},{-176,-259.156},{-178,-259.156},
+            {-178,112},{-246,112},{-246,111.486},{-355.477,111.486}},
+                                                           color={255,0,255}));
     connect(cAVControlv2_4.isNight, schedule.isNight) annotation (Line(points={{
-            -76.1933,-436.433},{-188,-436.433},{-188,66},{-187.8,66},{-187.8,105.543},
-            {-355.645,105.543}}, color={255,0,255}));
-    connect(cAVControlv2_4.isSunday, schedule.isSunday) annotation (Line(points=
-           {{-76.1933,-449.967},{-76.1933,-450},{-198,-450},{-198,52.0333},{-199.8,
-            52.0333},{-199.8,98.9143},{-355.814,98.9143}}, color={255,0,255}));
-    connect(cAVControlv2_5.isDay, schedule.isDay) annotation (Line(points={{-82.1933,
-            -587.156},{-176,-587.156},{-176,-259.156},{-178,-259.156},{-178,112},
-            {-246,112},{-246,111.486},{-355.477,111.486}}, color={255,0,255}));
+            -76.1933,-436.433},{-188,-436.433},{-188,66},{-187.8,66},{-187.8,
+            105.543},{-355.645,105.543}},
+                                 color={255,0,255}));
+    connect(cAVControlv2_4.isSunday, schedule.isSunday) annotation (Line(points={{
+            -76.1933,-449.967},{-76.1933,-450},{-198,-450},{-198,52.0333},{
+            -199.8,52.0333},{-199.8,98.9143},{-355.814,98.9143}},
+                                                           color={255,0,255}));
+    connect(cAVControlv2_5.isDay, schedule.isDay) annotation (Line(points={{
+            -82.1933,-587.156},{-176,-587.156},{-176,-259.156},{-178,-259.156},
+            {-178,112},{-246,112},{-246,111.486},{-355.477,111.486}},
+                                                           color={255,0,255}));
     connect(cAVControlv2_5.isNight, schedule.isNight) annotation (Line(points={{
-            -82.1933,-598.433},{-188,-598.433},{-188,66},{-187.8,66},{-187.8,105.543},
-            {-355.645,105.543}}, color={255,0,255}));
-    connect(cAVControlv2_5.isSunday, schedule.isSunday) annotation (Line(points=
-           {{-82.1933,-611.967},{-82.1933,-612},{-198,-612},{-198,52.0333},{-199.8,
-            52.0333},{-199.8,98.9143},{-355.814,98.9143}}, color={255,0,255}));
-    connect(cAVControlv2_2.HR_return, system3CAV1.HR) annotation (Line(points={{
-            -60.6,-148.833},{-60.6,-160.739},{-60.6293,-160.739},{-60.6293,-176.8}},
+            -82.1933,-598.433},{-188,-598.433},{-188,66},{-187.8,66},{-187.8,
+            105.543},{-355.645,105.543}},
+                                 color={255,0,255}));
+    connect(cAVControlv2_5.isSunday, schedule.isSunday) annotation (Line(points={{
+            -82.1933,-611.967},{-82.1933,-612},{-198,-612},{-198,52.0333},{
+            -199.8,52.0333},{-199.8,98.9143},{-355.814,98.9143}},
+                                                           color={255,0,255}));
+    connect(cAVControlv2_2.HR_return, system3CAV1.HR) annotation (Line(points={{-60.6,
+            -148.833},{-60.6,-160.739},{-60.6293,-160.739},{-60.6293,-176.8}},
           color={0,0,127}));
-    connect(cAVControlv2_2.T_OA, system3CAV1.TOA) annotation (Line(points={{-52.7067,
-            -149.156},{-52.7067,-161.578},{-53.4098,-161.578},{-53.4098,-177.273}},
+    connect(cAVControlv2_2.T_OA, system3CAV1.TOA) annotation (Line(points={{
+            -52.7067,-149.156},{-52.7067,-161.578},{-53.4098,-161.578},{
+            -53.4098,-177.273}},
           color={0,0,127}));
     connect(cAVControlv2_2.T_mixed, system3CAV1.TM) annotation (Line(points={{-44.32,
             -149.156},{-44.32,-163.578},{-47.2732,-163.578},{-47.2732,-177.036}},
@@ -1278,11 +1302,12 @@ model wrapped "Wrapped model"
     connect(cAVControlv2_2.T_supp, system3CAV1.TS) annotation (Line(points={{-36.92,
             -149.156},{-36.92,-161.578},{-40.0537,-161.578},{-40.0537,-176.8}},
           color={0,0,127}));
-    connect(cAVControlv2_3.HR_return, system3CAV2.HR) annotation (Line(points={{
-            -62.6,-316.833},{-62.6,-332.739},{-62.6293,-332.739},{-62.6293,-344.8}},
+    connect(cAVControlv2_3.HR_return, system3CAV2.HR) annotation (Line(points={{-62.6,
+            -316.833},{-62.6,-332.739},{-62.6293,-332.739},{-62.6293,-344.8}},
           color={0,0,127}));
-    connect(cAVControlv2_3.T_OA, system3CAV2.TOA) annotation (Line(points={{-54.7067,
-            -317.156},{-54.7067,-332.578},{-55.4098,-332.578},{-55.4098,-345.273}},
+    connect(cAVControlv2_3.T_OA, system3CAV2.TOA) annotation (Line(points={{
+            -54.7067,-317.156},{-54.7067,-332.578},{-55.4098,-332.578},{
+            -55.4098,-345.273}},
           color={0,0,127}));
     connect(cAVControlv2_3.T_mixed, system3CAV2.TM) annotation (Line(points={{-46.32,
             -317.156},{-46.32,-331.578},{-49.2732,-331.578},{-49.2732,-345.036}},
@@ -1290,11 +1315,12 @@ model wrapped "Wrapped model"
     connect(cAVControlv2_3.T_supp, system3CAV2.TS) annotation (Line(points={{-38.92,
             -317.156},{-38.92,-329.578},{-42.0537,-329.578},{-42.0537,-344.8}},
           color={0,0,127}));
-    connect(cAVControlv2_4.HR_return, system3CAV3.HR) annotation (Line(points={{
-            -64.6,-482.833},{-64.6,-498.739},{-64.6293,-498.739},{-64.6293,-510.8}},
+    connect(cAVControlv2_4.HR_return, system3CAV3.HR) annotation (Line(points={{-64.6,
+            -482.833},{-64.6,-498.739},{-64.6293,-498.739},{-64.6293,-510.8}},
           color={0,0,127}));
-    connect(cAVControlv2_4.T_OA, system3CAV3.TOA) annotation (Line(points={{-56.7067,
-            -483.156},{-56.7067,-496.578},{-57.4098,-496.578},{-57.4098,-511.273}},
+    connect(cAVControlv2_4.T_OA, system3CAV3.TOA) annotation (Line(points={{
+            -56.7067,-483.156},{-56.7067,-496.578},{-57.4098,-496.578},{
+            -57.4098,-511.273}},
           color={0,0,127}));
     connect(cAVControlv2_4.T_mixed, system3CAV3.TM) annotation (Line(points={{-48.32,
             -483.156},{-48.32,-498.578},{-51.2732,-498.578},{-51.2732,-511.036}},
@@ -1302,11 +1328,12 @@ model wrapped "Wrapped model"
     connect(cAVControlv2_4.T_supp, system3CAV3.TS) annotation (Line(points={{-40.92,
             -483.156},{-40.92,-497.578},{-44.0537,-497.578},{-44.0537,-510.8}},
           color={0,0,127}));
-    connect(cAVControlv2_5.HR_return, system3CAV4.HR) annotation (Line(points={{
-            -70.6,-644.833},{-70.6,-659.739},{-70.6293,-659.739},{-70.6293,-672.8}},
+    connect(cAVControlv2_5.HR_return, system3CAV4.HR) annotation (Line(points={{-70.6,
+            -644.833},{-70.6,-659.739},{-70.6293,-659.739},{-70.6293,-672.8}},
           color={0,0,127}));
-    connect(cAVControlv2_5.T_OA, system3CAV4.TOA) annotation (Line(points={{-62.7067,
-            -645.156},{-62.7067,-658.578},{-63.4098,-658.578},{-63.4098,-673.273}},
+    connect(cAVControlv2_5.T_OA, system3CAV4.TOA) annotation (Line(points={{
+            -62.7067,-645.156},{-62.7067,-658.578},{-63.4098,-658.578},{
+            -63.4098,-673.273}},
           color={0,0,127}));
     connect(cAVControlv2_5.T_mixed, system3CAV4.TM) annotation (Line(points={{-54.32,
             -645.156},{-54.32,-659.578},{-57.2732,-659.578},{-57.2732,-673.036}},
@@ -1326,14 +1353,17 @@ model wrapped "Wrapped model"
     connect(system3CAV2.port_return, zon2.ports[2]) annotation (Line(points={{1.4439,
             -393.964},{51.7219,-393.964},{51.7219,-337.1},{117,-337.1}}, color={
             0,127,255}));
-    connect(system3CAV3.port_supply, zon3.ports[1]) annotation (Line(points={{-0.736585,
-            -549.091},{45.6317,-549.091},{45.6317,-507.1},{117,-507.1}}, color={
+    connect(system3CAV3.port_supply, zon3.ports[1]) annotation (Line(points={{
+            -0.736585,-549.091},{45.6317,-549.091},{45.6317,-507.1},{117,-507.1}},
+                                                                         color={
             0,127,255}));
-    connect(system3CAV3.port_return, zon3.ports[2]) annotation (Line(points={{-0.556098,
-            -559.964},{49.722,-559.964},{49.722,-507.1},{119,-507.1}}, color={0,
+    connect(system3CAV3.port_return, zon3.ports[2]) annotation (Line(points={{
+            -0.556098,-559.964},{49.722,-559.964},{49.722,-507.1},{119,-507.1}},
+                                                                       color={0,
             127,255}));
-    connect(system3CAV4.port_supply, zon4.ports[1]) annotation (Line(points={{-6.73659,
-            -711.091},{45.6317,-711.091},{45.6317,-669.1},{115,-669.1}}, color={
+    connect(system3CAV4.port_supply, zon4.ports[1]) annotation (Line(points={{
+            -6.73659,-711.091},{45.6317,-711.091},{45.6317,-669.1},{115,-669.1}},
+                                                                         color={
             0,127,255}));
     connect(system3CAV4.port_return, zon4.ports[2]) annotation (Line(points={{-6.5561,
             -721.964},{46.7219,-721.964},{46.7219,-669.1},{117,-669.1}}, color={
@@ -1346,20 +1376,20 @@ model wrapped "Wrapped model"
             {44,176},{-99,176}}, color={0,0,127}));
     connect(zon4.qGai_flow, mul.y) annotation (Line(points={{96,-640},{38,-640},
             {38,176},{-99,176}}, color={0,0,127}));
-    connect(system3CAV.OA_VFR, cAVControlv2_1.OA_VFR) annotation (Line(points={{
-            -30.278,-14.8},{-30.278,6.6},{-28.0133,6.6},{-28.0133,18.8444}},
+    connect(system3CAV.OA_VFR, cAVControlv2_1.OA_VFR) annotation (Line(points={{-30.278,
+            -14.8},{-30.278,6.6},{-28.0133,6.6},{-28.0133,18.8444}},
           color={0,0,127}));
-    connect(system3CAV1.OA_VFR, cAVControlv2_2.OA_VFR) annotation (Line(points={
-            {-34.278,-176.8},{-34.278,-164.4},{-30.0133,-164.4},{-30.0133,-149.156}},
+    connect(system3CAV1.OA_VFR, cAVControlv2_2.OA_VFR) annotation (Line(points={{-34.278,
+            -176.8},{-34.278,-164.4},{-30.0133,-164.4},{-30.0133,-149.156}},
           color={0,0,127}));
-    connect(system3CAV2.OA_VFR, cAVControlv2_3.OA_VFR) annotation (Line(points={
-            {-36.278,-344.8},{-36.278,-331.4},{-32.0133,-331.4},{-32.0133,-317.156}},
+    connect(system3CAV2.OA_VFR, cAVControlv2_3.OA_VFR) annotation (Line(points={{-36.278,
+            -344.8},{-36.278,-331.4},{-32.0133,-331.4},{-32.0133,-317.156}},
           color={0,0,127}));
-    connect(system3CAV3.OA_VFR, cAVControlv2_4.OA_VFR) annotation (Line(points={
-            {-38.278,-510.8},{-38.278,-498.4},{-34.0133,-498.4},{-34.0133,-483.156}},
+    connect(system3CAV3.OA_VFR, cAVControlv2_4.OA_VFR) annotation (Line(points={{-38.278,
+            -510.8},{-38.278,-498.4},{-34.0133,-498.4},{-34.0133,-483.156}},
           color={0,0,127}));
-    connect(system3CAV4.OA_VFR, cAVControlv2_5.OA_VFR) annotation (Line(points={
-            {-44.278,-672.8},{-44.278,-660.4},{-40.0133,-660.4},{-40.0133,-645.156}},
+    connect(system3CAV4.OA_VFR, cAVControlv2_5.OA_VFR) annotation (Line(points={{-44.278,
+            -672.8},{-44.278,-660.4},{-40.0133,-660.4},{-40.0133,-645.156}},
           color={0,0,127}));
     connect(infCore4.port_a1, out4.ports[3]) annotation (Line(points={{-248,-658},
             {-336,-658},{-336,-719},{-424,-719}}, color={0,127,255}));
@@ -1402,35 +1432,37 @@ model wrapped "Wrapped model"
             {-66,-156},{-66,-203.1},{121,-203.1}}, color={0,127,255}));
     connect(infCoreACH1.y, infCore1.ACS) annotation (Line(points={{-267,-120},{-262,
             -120},{-262,-140},{-255,-140}}, color={0,0,127}));
-    connect(Daytime.u1, schedule.isDay) annotation (Line(points={{-106,130},{-144,
-            130},{-144,112},{-246,112},{-246,111.486},{-355.477,111.486}},
+    connect(Daytime.u1, schedule.isDay) annotation (Line(points={{-106,130},{
+            -144,130},{-144,112},{-246,112},{-246,111.486},{-355.477,111.486}},
           color={255,0,255}));
     connect(not4.y, Daytime.u2) annotation (Line(points={{-120,92},{-114,92},{-114,
             122},{-106,122}}, color={255,0,255}));
     connect(not4.u, schedule.isSunday) annotation (Line(points={{-144,92},{-172,
             92},{-172,98},{-199.8,98},{-199.8,98.9143},{-355.814,98.9143}},
           color={255,0,255}));
-    connect(cAVControlv2_1.HC_Setpoint, oveHCSet1.u) annotation (Line(points={{-12.4733,
-            18.8444},{-12,18.8444},{-12,10},{190,10},{190,146},{266,146}},
+    connect(cAVControlv2_1.HC_Setpoint, oveHCSet1.u) annotation (Line(points={{
+            -12.4733,18.8444},{-12,18.8444},{-12,10},{190,10},{190,146},{266,
+            146}},
           color={0,0,127}));
     connect(oveHCSet1.y, system3CAV.T_HeatingCoil_Command) annotation (Line(
-          points={{289,146},{304,146},{304,144},{318,144},{318,8},{-16.561,8},{-16.561,
-            -14.8}}, color={0,0,127}));
-    connect(cAVControlv2_1.Damper_Setting, oveDSet1.u) annotation (Line(points={
-            {-5.44333,19.0056},{-6,19.0056},{-6,14},{198,14},{198,120},{266,120}},
+          points={{289,146},{304,146},{304,144},{318,144},{318,8},{-16.561,8},{
+            -16.561,-14.8}},
+                     color={0,0,127}));
+    connect(cAVControlv2_1.Damper_Setting, oveDSet1.u) annotation (Line(points={{
+            -5.44333,19.0056},{-6,19.0056},{-6,14},{198,14},{198,120},{266,120}},
           color={0,0,127}));
     connect(oveDSet1.y, system3CAV.OA_Damper_mixing_command) annotation (Line(
           points={{289,120},{312,120},{312,4},{-9.88293,4},{-9.88293,-14.8}},
           color={0,0,127}));
-    connect(oveVFRSet1.u, cAVControlv2_1.VFR_setting) annotation (Line(points={{
-            266,94},{202,94},{202,19.3278},{3.19,19.3278}}, color={0,0,127}));
+    connect(oveVFRSet1.u, cAVControlv2_1.VFR_setting) annotation (Line(points={{266,94},
+            {202,94},{202,19.3278},{3.19,19.3278}},         color={0,0,127}));
     connect(oveVFRSet1.y, system3CAV.Fan_Flowrate_setpoint) annotation (Line(
           points={{289,94},{306,94},{306,-4},{0.404878,-4},{0.404878,-14.8}},
           color={0,0,127}));
     connect(zon.TAir, senTRoom1.u) annotation (Line(points={{141,97.8},{180,97.8},
             {180,68},{266,68}}, color={0,0,127}));
-    connect(senTRoom1.y, cAVControlv2_1.T_return) annotation (Line(points={{289,
-            68},{300,68},{300,30},{-74,30},{-74,18.5222},{-67.2333,18.5222}},
+    connect(senTRoom1.y, cAVControlv2_1.T_return) annotation (Line(points={{289,68},
+            {300,68},{300,30},{-74,30},{-74,18.5222},{-67.2333,18.5222}},
           color={0,0,127}));
     connect(Daytime.y, booleanToReal.u)
       annotation (Line(points={{-83,130},{-72,130}}, color={255,0,255}));
@@ -1438,13 +1470,14 @@ model wrapped "Wrapped model"
       annotation (Line(points={{-49,130},{-36,130}}, color={0,0,127}));
     connect(booleanToReal1.y, oveCC1.u)
       annotation (Line(points={{255,172},{266,172}}, color={0,0,127}));
-    connect(cAVControlv2_1.CC_OnOff, booleanToReal1.u) annotation (Line(points={
-            {-20.7367,18.6833},{-20.7367,36},{182,36},{182,172},{232,172}},
+    connect(cAVControlv2_1.CC_OnOff, booleanToReal1.u) annotation (Line(points={{
+            -20.7367,18.6833},{-20.7367,36},{182,36},{182,172},{232,172}},
           color={255,0,255}));
     connect(oveCC1.y, realToBoolean.u)
       annotation (Line(points={{289,172},{300,172}}, color={0,0,127}));
     connect(realToBoolean.y, system3CAV.CoolingCoil_OnOff_Command) annotation (
-        Line(points={{323,172},{326,172},{326,-8},{-24.322,-8},{-24.322,-15.0364}},
+        Line(points={{323,172},{326,172},{326,-8},{-24.322,-8},{-24.322,
+            -15.0364}},
           color={255,0,255}));
     connect(booleanToReal2.y, oveCC2.u)
       annotation (Line(points={{259,-112},{270,-112}}, color={0,0,127}));
@@ -1462,25 +1495,28 @@ model wrapped "Wrapped model"
       annotation (Line(points={{263,-602},{274,-602}}, color={0,0,127}));
     connect(oveCC5.y, realToBoolean4.u)
       annotation (Line(points={{297,-602},{308,-602}}, color={0,0,127}));
-    connect(cAVControlv2_2.CC_OnOff, booleanToReal2.u) annotation (Line(points={
-            {-22.7367,-149.317},{-22.7367,-112},{236,-112}}, color={255,0,255}));
+    connect(cAVControlv2_2.CC_OnOff, booleanToReal2.u) annotation (Line(points={{
+            -22.7367,-149.317},{-22.7367,-112},{236,-112}},  color={255,0,255}));
     connect(realToBoolean1.y, system3CAV1.CoolingCoil_OnOff_Command)
-      annotation (Line(points={{327,-112},{392,-112},{392,-266},{14,-266},{14,-170},
-            {-28.322,-170},{-28.322,-177.036}}, color={255,0,255}));
-    connect(cAVControlv2_2.HC_Setpoint, oveHCSet2.u) annotation (Line(points={{-14.4733,
-            -149.156},{-16,-149.156},{-16,-120},{220,-120},{220,-138},{270,-138}},
+      annotation (Line(points={{327,-112},{392,-112},{392,-266},{14,-266},{14,
+            -170},{-28.322,-170},{-28.322,-177.036}},
+                                                color={255,0,255}));
+    connect(cAVControlv2_2.HC_Setpoint, oveHCSet2.u) annotation (Line(points={{
+            -14.4733,-149.156},{-16,-149.156},{-16,-120},{220,-120},{220,-138},
+            {270,-138}},
           color={0,0,127}));
     connect(oveHCSet2.y, system3CAV1.T_HeatingCoil_Command) annotation (Line(
           points={{293,-138},{384,-138},{384,-260},{18,-260},{18,-166},{-20.561,
             -166},{-20.561,-176.8}}, color={0,0,127}));
-    connect(cAVControlv2_2.Damper_Setting, oveDSet2.u) annotation (Line(points={
-            {-7.44333,-148.994},{-7.44333,-128},{216,-128},{216,-164},{270,-164}},
+    connect(cAVControlv2_2.Damper_Setting, oveDSet2.u) annotation (Line(points={{
+            -7.44333,-148.994},{-7.44333,-128},{216,-128},{216,-164},{270,-164}},
           color={0,0,127}));
     connect(oveDSet2.y, system3CAV1.OA_Damper_mixing_command) annotation (Line(
-          points={{293,-164},{376,-164},{376,-254},{24,-254},{24,-160},{-13.8829,
-            -160},{-13.8829,-176.8}}, color={0,0,127}));
-    connect(cAVControlv2_2.VFR_setting, oveVFRSet2.u) annotation (Line(points={{
-            1.19,-148.672},{1.19,-136},{212,-136},{212,-190},{270,-190}}, color=
+          points={{293,-164},{376,-164},{376,-254},{24,-254},{24,-160},{
+            -13.8829,-160},{-13.8829,-176.8}},
+                                      color={0,0,127}));
+    connect(cAVControlv2_2.VFR_setting, oveVFRSet2.u) annotation (Line(points={{1.19,
+            -148.672},{1.19,-136},{212,-136},{212,-190},{270,-190}},      color=
            {0,0,127}));
     connect(oveVFRSet2.y, system3CAV1.Fan_Flowrate_setpoint) annotation (Line(
           points={{293,-190},{370,-190},{370,-248},{28,-248},{28,-156},{-3.59512,
@@ -1488,112 +1524,129 @@ model wrapped "Wrapped model"
     connect(zon1.TAir, senTRoom2.u) annotation (Line(points={{139,-170.2},{206,-170.2},
             {206,-216},{270,-216}}, color={0,0,127}));
     connect(senTRoom2.y, cAVControlv2_2.T_return) annotation (Line(points={{293,
-            -216},{314,-216},{314,-242},{56,-242},{56,-149.478},{-69.2333,-149.478}},
+            -216},{314,-216},{314,-242},{56,-242},{56,-149.478},{-69.2333,
+            -149.478}},
           color={0,0,127}));
-    connect(cAVControlv2_3.CC_OnOff, booleanToReal3.u) annotation (Line(points={
-            {-24.7367,-317.317},{-24.7367,-278},{216,-278},{216,-288},{238,-288}},
+    connect(cAVControlv2_3.CC_OnOff, booleanToReal3.u) annotation (Line(points={{
+            -24.7367,-317.317},{-24.7367,-278},{216,-278},{216,-288},{238,-288}},
           color={255,0,255}));
-    connect(cAVControlv2_3.HC_Setpoint, oveHCSet3.u) annotation (Line(points={{-16.4733,
-            -317.156},{-16.4733,-282},{212,-282},{212,-314},{272,-314}}, color={
+    connect(cAVControlv2_3.HC_Setpoint, oveHCSet3.u) annotation (Line(points={{
+            -16.4733,-317.156},{-16.4733,-282},{212,-282},{212,-314},{272,-314}},
+                                                                         color={
             0,0,127}));
-    connect(cAVControlv2_3.Damper_Setting, oveDSet3.u) annotation (Line(points={
-            {-9.44333,-316.994},{-9.44333,-288},{208,-288},{208,-340},{272,-340}},
+    connect(cAVControlv2_3.Damper_Setting, oveDSet3.u) annotation (Line(points={{
+            -9.44333,-316.994},{-9.44333,-288},{208,-288},{208,-340},{272,-340}},
           color={0,0,127}));
-    connect(cAVControlv2_3.VFR_setting, oveVFRSet3.u) annotation (Line(points={{
-            -0.81,-316.672},{-0.81,-294},{202,-294},{202,-366},{272,-366}},
+    connect(cAVControlv2_3.VFR_setting, oveVFRSet3.u) annotation (Line(points={{-0.81,
+            -316.672},{-0.81,-294},{202,-294},{202,-366},{272,-366}},
           color={0,0,127}));
     connect(zon2.TAir, senTRoom3.u) annotation (Line(points={{139,-304.2},{139,-304},
             {194,-304},{194,-392},{272,-392}}, color={0,0,127}));
     connect(realToBoolean2.y, system3CAV2.CoolingCoil_OnOff_Command)
-      annotation (Line(points={{329,-288},{378,-288},{378,-426},{12,-426},{12,-334},
-            {-30.322,-334},{-30.322,-345.036}}, color={255,0,255}));
+      annotation (Line(points={{329,-288},{378,-288},{378,-426},{12,-426},{12,
+            -334},{-30.322,-334},{-30.322,-345.036}},
+                                                color={255,0,255}));
     connect(oveHCSet3.y, system3CAV2.T_HeatingCoil_Command) annotation (Line(
           points={{295,-314},{372,-314},{372,-422},{16,-422},{16,-330},{-22.561,
             -330},{-22.561,-344.8}}, color={0,0,127}));
     connect(oveDSet3.y, system3CAV2.OA_Damper_mixing_command) annotation (Line(
-          points={{295,-340},{366,-340},{366,-418},{22,-418},{22,-326},{-15.8829,
-            -326},{-15.8829,-344.8}}, color={0,0,127}));
+          points={{295,-340},{366,-340},{366,-418},{22,-418},{22,-326},{
+            -15.8829,-326},{-15.8829,-344.8}},
+                                      color={0,0,127}));
     connect(oveVFRSet3.y, system3CAV2.Fan_Flowrate_setpoint) annotation (Line(
           points={{295,-366},{360,-366},{360,-414},{30,-414},{30,-324},{-5.59512,
             -324},{-5.59512,-344.8}}, color={0,0,127}));
     connect(senTRoom3.y, cAVControlv2_3.T_return) annotation (Line(points={{295,
-            -392},{354,-392},{354,-408},{34,-408},{34,-324},{-71.2333,-324},{-71.2333,
-            -317.478}}, color={0,0,127}));
-    connect(cAVControlv2_4.CC_OnOff, booleanToReal4.u) annotation (Line(points={
-            {-26.7367,-483.317},{-26.7367,-432},{218,-432},{218,-444},{238,-444}},
+            -392},{354,-392},{354,-408},{34,-408},{34,-324},{-71.2333,-324},{
+            -71.2333,-317.478}},
+                        color={0,0,127}));
+    connect(cAVControlv2_4.CC_OnOff, booleanToReal4.u) annotation (Line(points={{
+            -26.7367,-483.317},{-26.7367,-432},{218,-432},{218,-444},{238,-444}},
           color={255,0,255}));
-    connect(cAVControlv2_4.HC_Setpoint, oveHCSet4.u) annotation (Line(points={{-18.4733,
-            -483.156},{-18.4733,-436},{212,-436},{212,-470},{272,-470}}, color={
+    connect(cAVControlv2_4.HC_Setpoint, oveHCSet4.u) annotation (Line(points={{
+            -18.4733,-483.156},{-18.4733,-436},{212,-436},{212,-470},{272,-470}},
+                                                                         color={
             0,0,127}));
-    connect(cAVControlv2_4.Damper_Setting, oveDSet4.u) annotation (Line(points={
-            {-11.4433,-482.994},{-11.4433,-442},{206,-442},{206,-496},{272,-496}},
+    connect(cAVControlv2_4.Damper_Setting, oveDSet4.u) annotation (Line(points={{
+            -11.4433,-482.994},{-11.4433,-442},{206,-442},{206,-496},{272,-496}},
           color={0,0,127}));
-    connect(cAVControlv2_4.VFR_setting, oveVFRSet4.u) annotation (Line(points={{
-            -2.81,-482.672},{-2.81,-450},{200,-450},{200,-522},{272,-522}},
+    connect(cAVControlv2_4.VFR_setting, oveVFRSet4.u) annotation (Line(points={{-2.81,
+            -482.672},{-2.81,-450},{200,-450},{200,-522},{272,-522}},
           color={0,0,127}));
     connect(zon3.TAir, senTRoom4.u) annotation (Line(points={{141,-474.2},{194,-474.2},
             {194,-548},{272,-548}}, color={0,0,127}));
     connect(realToBoolean3.y, system3CAV3.CoolingCoil_OnOff_Command)
-      annotation (Line(points={{329,-444},{376,-444},{376,-584},{10,-584},{10,-504},
-            {-32.322,-504},{-32.322,-511.036}}, color={255,0,255}));
+      annotation (Line(points={{329,-444},{376,-444},{376,-584},{10,-584},{10,
+            -504},{-32.322,-504},{-32.322,-511.036}},
+                                                color={255,0,255}));
     connect(oveHCSet4.y, system3CAV3.T_HeatingCoil_Command) annotation (Line(
           points={{295,-470},{370,-470},{370,-580},{14,-580},{14,-502},{-24.561,
             -502},{-24.561,-510.8}}, color={0,0,127}));
     connect(oveDSet4.y, system3CAV3.OA_Damper_mixing_command) annotation (Line(
-          points={{295,-496},{366,-496},{366,-576},{20,-576},{20,-498},{-17.8829,
-            -498},{-17.8829,-510.8}}, color={0,0,127}));
+          points={{295,-496},{366,-496},{366,-576},{20,-576},{20,-498},{
+            -17.8829,-498},{-17.8829,-510.8}},
+                                      color={0,0,127}));
     connect(oveVFRSet4.y, system3CAV3.Fan_Flowrate_setpoint) annotation (Line(
           points={{295,-522},{358,-522},{358,-572},{26,-572},{26,-494},{-7.59512,
             -494},{-7.59512,-510.8}}, color={0,0,127}));
     connect(senTRoom4.y, cAVControlv2_4.T_return) annotation (Line(points={{295,
-            -548},{352,-548},{352,-568},{30,-568},{30,-490},{-73.2333,-490},{-73.2333,
-            -483.478}}, color={0,0,127}));
-    connect(cAVControlv2_5.CC_OnOff, booleanToReal5.u) annotation (Line(points={
-            {-32.7367,-645.317},{-32.7367,-590},{220,-590},{220,-602},{240,-602}},
+            -548},{352,-548},{352,-568},{30,-568},{30,-490},{-73.2333,-490},{
+            -73.2333,-483.478}},
+                        color={0,0,127}));
+    connect(cAVControlv2_5.CC_OnOff, booleanToReal5.u) annotation (Line(points={{
+            -32.7367,-645.317},{-32.7367,-590},{220,-590},{220,-602},{240,-602}},
           color={255,0,255}));
-    connect(cAVControlv2_5.HC_Setpoint, oveHCSet5.u) annotation (Line(points={{-24.4733,
-            -645.156},{-24.4733,-596},{216,-596},{216,-628},{274,-628}}, color={
+    connect(cAVControlv2_5.HC_Setpoint, oveHCSet5.u) annotation (Line(points={{
+            -24.4733,-645.156},{-24.4733,-596},{216,-596},{216,-628},{274,-628}},
+                                                                         color={
             0,0,127}));
-    connect(cAVControlv2_5.Damper_Setting, oveDSet5.u) annotation (Line(points={
-            {-17.4433,-644.994},{-17.4433,-604},{208,-604},{208,-654},{274,-654}},
+    connect(cAVControlv2_5.Damper_Setting, oveDSet5.u) annotation (Line(points={{
+            -17.4433,-644.994},{-17.4433,-604},{208,-604},{208,-654},{274,-654}},
           color={0,0,127}));
-    connect(cAVControlv2_5.VFR_setting, oveVFRSet5.u) annotation (Line(points={{
-            -8.81,-644.672},{-8.81,-612},{200,-612},{200,-680},{274,-680}},
+    connect(cAVControlv2_5.VFR_setting, oveVFRSet5.u) annotation (Line(points={{-8.81,
+            -644.672},{-8.81,-612},{200,-612},{200,-680},{274,-680}},
           color={0,0,127}));
     connect(zon4.TAir, senTRoom5.u) annotation (Line(points={{139,-636.2},{196,-636.2},
             {196,-706},{274,-706}}, color={0,0,127}));
     connect(realToBoolean4.y, system3CAV4.CoolingCoil_OnOff_Command)
-      annotation (Line(points={{331,-602},{370,-602},{370,-766},{8,-766},{8,-664},
-            {-38.322,-664},{-38.322,-673.036}}, color={255,0,255}));
+      annotation (Line(points={{331,-602},{370,-602},{370,-766},{8,-766},{8,
+            -664},{-38.322,-664},{-38.322,-673.036}},
+                                                color={255,0,255}));
     connect(oveHCSet5.y, system3CAV4.T_HeatingCoil_Command) annotation (Line(
           points={{297,-628},{364,-628},{364,-760},{14,-760},{14,-660},{-30.561,
             -660},{-30.561,-672.8}}, color={0,0,127}));
     connect(oveDSet5.y, system3CAV4.OA_Damper_mixing_command) annotation (Line(
-          points={{297,-654},{356,-654},{356,-754},{22,-754},{22,-656},{-23.8829,
-            -656},{-23.8829,-672.8}}, color={0,0,127}));
+          points={{297,-654},{356,-654},{356,-754},{22,-754},{22,-656},{
+            -23.8829,-656},{-23.8829,-672.8}},
+                                      color={0,0,127}));
     connect(oveVFRSet5.y, system3CAV4.Fan_Flowrate_setpoint) annotation (Line(
-          points={{297,-680},{350,-680},{350,-748},{26,-748},{26,-652},{-13.5951,
-            -652},{-13.5951,-672.8}}, color={0,0,127}));
+          points={{297,-680},{350,-680},{350,-748},{26,-748},{26,-652},{
+            -13.5951,-652},{-13.5951,-672.8}},
+                                      color={0,0,127}));
     connect(senTRoom5.y, cAVControlv2_5.T_return) annotation (Line(points={{297,
-            -706},{344,-706},{344,-744},{34,-744},{34,-636},{-90,-636},{-90,-645.478},
-            {-79.2333,-645.478}}, color={0,0,127}));
-    connect(system3CAV.HVAC_Tot_H_Power, multiSum.u[1]) annotation (Line(points=
-           {{9.24878,-15.0364},{370,-15.0364},{370,-78.64},{432,-78.64}}, color=
+            -706},{344,-706},{344,-744},{34,-744},{34,-636},{-90,-636},{-90,
+            -645.478},{-79.2333,-645.478}},
+                                  color={0,0,127}));
+    connect(system3CAV.HVAC_Tot_H_Power, multiSum.u[1]) annotation (Line(points={{9.24878,
+            -15.0364},{370,-15.0364},{370,-78.64},{432,-78.64}},          color=
            {0,0,127}));
     connect(system3CAV2.HVAC_Tot_H_Power, multiSum.u[2]) annotation (Line(
           points={{3.24878,-345.036},{382,-345.036},{382,-80.32},{432,-80.32}},
           color={0,0,127}));
     connect(multiSum.u[3], system3CAV3.HVAC_Tot_H_Power) annotation (Line(
-          points={{432,-82},{382,-82},{382,-512},{1.24878,-512},{1.24878,-511.036}},
+          points={{432,-82},{382,-82},{382,-512},{1.24878,-512},{1.24878,
+            -511.036}},
           color={0,0,127}));
     connect(multiSum.u[4], system3CAV4.HVAC_Tot_H_Power) annotation (Line(
-          points={{432,-83.68},{432,-728},{66,-728},{66,-673.036},{-4.75122,-673.036}},
+          points={{432,-83.68},{432,-728},{66,-728},{66,-673.036},{-4.75122,
+            -673.036}},
           color={0,0,127}));
     connect(multiSum.y, senHPow.u) annotation (Line(points={{445.02,-82},{438,-82},
             {438,-58},{458,-58}}, color={0,0,127}));
 
     connect(system3CAV1.HVAC_Tot_H_Power, multiSum.u[5]) annotation (Line(
-          points={{5.24878,-177.036},{218.624,-177.036},{218.624,-85.36},{432,-85.36}},
+          points={{5.24878,-177.036},{218.624,-177.036},{218.624,-85.36},{432,
+            -85.36}},
           color={0,0,127}));
     annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
           coordinateSystem(preserveAspectRatio=false)));
@@ -1782,9 +1835,9 @@ model wrapped "Wrapped model"
 
   // Original model
   SOM3 mod(
-    weaDat(filNam=ModelicaServices.ExternalReferences.loadResource("modelica://Buildings/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos")),
-    building(idfName=Modelica.Utilities.Files.loadResource("modelica://Buildings/Resources/Data/ThermalZones/EnergyPlus/Validation/RefBldgSmallOfficeNew2004_Chicago.idf"),
-        weaName=Modelica.Utilities.Files.loadResource("modelica://Buildings/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos")),
+    weaDat(filNam=ModelicaServices.ExternalReferences.loadResource("modelica://som3/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos")),
+    building(idfName=Modelica.Utilities.Files.loadResource("modelica://som3/RefBldgSmallOfficeNew2004_Chicago.idf"),
+        weaName=Modelica.Utilities.Files.loadResource("modelica://som3/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos")),
     oveHCSet1(uExt(y=oveHCSet1_u), activate(y=oveHCSet1_activate)),
     oveHCSet2(uExt(y=oveHCSet2_u), activate(y=oveHCSet2_activate)),
     oveHCSet3(uExt(y=oveHCSet3_u), activate(y=oveHCSet3_activate)),

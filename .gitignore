@@ -1,0 +1,9 @@
+.vscode
+.idea
+.python-version
+
+*/.FMUOutput
+*/dslog.txt
+*/dsmodel.c
+*/request.
+*/status.
