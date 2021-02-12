@@ -13,7 +13,8 @@ import numpy as np
 import json, collections
 from matplotlib import pyplot as plt
 import csv
-import time
+import time as _time
+import os
 
 def run(plot=True, customized_kpi_config=None):
     '''Run test case.
@@ -39,7 +40,17 @@ def run(plot=True, customized_kpi_config=None):
         Empty if no customized KPI calculations defined.
 
     '''
+    sudoPassword = 'toosmartfordah'
     
+    print("TESTING: Stopping Docker container")
+    command = 'bash stop.sh'
+    p = os.system('echo %s|sudo -S %s' % (sudoPassword, command))
+    _time.sleep(3)
+    
+    print("TESTING: Starting Docker container")
+    command = 'bash start.sh'
+    p = os.system('echo %s|sudo -S %s' % (sudoPassword, command))
+    _time.sleep(5)
     
     # SETUP TEST CASE
     # ---------------
@@ -49,7 +60,7 @@ def run(plot=True, customized_kpi_config=None):
     url = 'http://0.0.0.0:5000'
     
     # Set simulation parameters
-    length = 1 * 24 * 3600
+    length = 1 * 1 * 3600
 
     step = 300
 
@@ -164,7 +175,7 @@ def run(plot=True, customized_kpi_config=None):
         print('{0}: {1} {2}'.format(key, kpi[key], unit))
 
     # Plot results
-
+    
     results = [time, loSet, hiSet, TZone, TZone1, TZone2, TZone3, TZone4, TOA, PHeat, PHeat1, PHeat2, PHeat3, PHeat4,
                PCool, PCool1, PCool2, PCool3, PCool4, PFan, PFan1, PFan2, PFan3, PFan4]
     results = list(map(list, zip(*results)))
@@ -365,45 +376,45 @@ def initializeControls():
          'oveVFRSet3_activate': 0,
          'oveVFRSet4_u': 0,
          'oveVFRSet4_activate': 0,
-         'oveHeaOccSet_u': 0,
+         'oveHeaOccSet_u': 273.15+21,
          'oveHeaOccSet_activate': 0,
-         'oveHeaOccSet1_u': 0,
+         'oveHeaOccSet1_u': 273.15+21,
          'oveHeaOccSet1_activate': 0,
-         'oveHeaOccSet2_u': 0,
+         'oveHeaOccSet2_u': 273.15+21,
          'oveHeaOccSet2_activate': 0,
-         'oveHeaOccSet3_u': 0,
+         'oveHeaOccSet3_u': 273.15+21,
          'oveHeaOccSet3_activate': 0,
-         'oveHeaOccSet4_u': 0,
+         'oveHeaOccSet4_u': 273.15+21,
          'oveHeaOccSet4_activate': 0,
-         'oveHeaNonOccSet_u': 0,
+         'oveHeaNonOccSet_u': 273.15+15.6,
          'oveHeaNonOccSet_activate': 0,
-         'oveHeaNonOccSet1_u': 0,
+         'oveHeaNonOccSet1_u': 273.15+15.6,
          'oveHeaNonOccSet1_activate': 0,
-         'oveHeaNonOccSet2_u': 0,
+         'oveHeaNonOccSet2_u': 273.15+15.6,
          'oveHeaNonOccSet2_activate': 0,
-         'oveHeaNonOccSet3_u': 0,
+         'oveHeaNonOccSet3_u': 273.15+15.6,
          'oveHeaNonOccSet3_activate': 0,
-         'oveHeaNonOccSet4_u': 0,
+         'oveHeaNonOccSet4_u': 273.15+15.6,
          'oveHeaNonOccSet4_activate': 0,
-         'oveCooOccSet_u': 0,
+         'oveCooOccSet_u': 273.15+24,
          'oveCooOccSet_activate': 0,
-         'oveCooOccSet1_u': 0,
+         'oveCooOccSet1_u': 273.15+24,
          'oveCooOccSet1_activate': 0,
-         'oveCooOccSet2_u': 0,
+         'oveCooOccSet2_u': 273.15+24,
          'oveCooOccSet2_activate': 0,
-         'oveCooOccSet3_u': 0,
+         'oveCooOccSet3_u': 273.15+24,
          'oveCooOccSet3_activate': 0,
-         'oveCooOccSet4_u': 0,
+         'oveCooOccSet4_u': 273.15+24,
          'oveCooOccSet4_activate': 0,
-         'oveCooNonOccSet_u': 0,
+         'oveCooNonOccSet_u': 273.15+26.7,
          'oveCooNonOccSet_activate': 0,
-         'oveCooNonOccSet1_u': 0,
+         'oveCooNonOccSet1_u': 273.15+26.7,
          'oveCooNonOccSet1_activate': 0,
-         'oveCooNonOccSet2_u': 0,
+         'oveCooNonOccSet2_u': 273.15+26.7,
          'oveCooNonOccSet2_activate': 0,
-         'oveCooNonOccSet3_u': 0,
+         'oveCooNonOccSet3_u': 273.15+26.7,
          'oveCooNonOccSet3_activate': 0,
-         'oveCooNonOccSet4_u': 0,
+         'oveCooNonOccSet4_u': 273.15+26.7,
          'oveCooNonOccSet4_activate': 0
          }
 
