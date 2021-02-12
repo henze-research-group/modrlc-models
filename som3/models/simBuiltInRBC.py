@@ -49,7 +49,7 @@ def run(plot=True, customized_kpi_config=None):
     url = 'http://0.0.0.0:5000'
     
     # Set simulation parameters
-    length = 7 * 24 * 3600
+    length = 1 * 24 * 3600
 
     step = 300
 
@@ -364,7 +364,48 @@ def initializeControls():
          'oveVFRSet3_u': 0,
          'oveVFRSet3_activate': 0,
          'oveVFRSet4_u': 0,
-         'oveVFRSet4_activate': 0}
+         'oveVFRSet4_activate': 0,
+         'oveHeaOccSet_u': 0,
+         'oveHeaOccSet_activate': 0,
+         'oveHeaOccSet1_u': 0,
+         'oveHeaOccSet1_activate': 0,
+         'oveHeaOccSet2_u': 0,
+         'oveHeaOccSet2_activate': 0,
+         'oveHeaOccSet3_u': 0,
+         'oveHeaOccSet3_activate': 0,
+         'oveHeaOccSet4_u': 0,
+         'oveHeaOccSet4_activate': 0,
+         'oveHeaNonOccSet_u': 0,
+         'oveHeaNonOccSet_activate': 0,
+         'oveHeaNonOccSet1_u': 0,
+         'oveHeaNonOccSet1_activate': 0,
+         'oveHeaNonOccSet2_u': 0,
+         'oveHeaNonOccSet2_activate': 0,
+         'oveHeaNonOccSet3_u': 0,
+         'oveHeaNonOccSet3_activate': 0,
+         'oveHeaNonOccSet4_u': 0,
+         'oveHeaNonOccSet4_activate': 0,
+         'oveCooOccSet_u': 0,
+         'oveCooOccSet_activate': 0,
+         'oveCooOccSet1_u': 0,
+         'oveCooOccSet1_activate': 0,
+         'oveCooOccSet2_u': 0,
+         'oveCooOccSet2_activate': 0,
+         'oveCooOccSet3_u': 0,
+         'oveCooOccSet3_activate': 0,
+         'oveCooOccSet4_u': 0,
+         'oveCooOccSet4_activate': 0,
+         'oveCooNonOccSet_u': 0,
+         'oveCooNonOccSet_activate': 0,
+         'oveCooNonOccSet1_u': 0,
+         'oveCooNonOccSet1_activate': 0,
+         'oveCooNonOccSet2_u': 0,
+         'oveCooNonOccSet2_activate': 0,
+         'oveCooNonOccSet3_u': 0,
+         'oveCooNonOccSet3_activate': 0,
+         'oveCooNonOccSet4_u': 0,
+         'oveCooNonOccSet4_activate': 0
+         }
 
     return u
 
