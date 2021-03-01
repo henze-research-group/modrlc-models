@@ -7,11 +7,11 @@ model SOM3 "Spawn replica of the Reference Small Office Building"
   String weaPat = "USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.epw";         // insert  .mos file path
 
   //Parameters//
-  Real OAInfCore = 0.121 "OA infiltration in the core zone";
-  Real OAInfP1 = 0.089 "OA infiltration in the perimeter zone 1";
-  Real OAInfP2 = 0.101 "OA infiltration in the perimeter zone 2";
-  Real OAInfP3 = 0.089 "OA infiltration in the perimeter zone 3";
-  Real OAInfP4 = 0.101 "OA infiltration in the perimeter zone 4";
+  Real OAInfCore = 0.36 / 3600 "OA infiltration in the core zone (air changes per second, ACS)";
+  Real OAInfP1 = 0.265 / 3600 "OA infiltration in the perimeter zone 1, ACS";
+  Real OAInfP2 = 0.298 / 3600 "OA infiltration in the perimeter zone 2, ACS";
+  Real OAInfP3 = 0.265 / 3600 "OA infiltration in the perimeter zone 3, ACS";
+  Real OAInfP4 = 0.298 / 3600 "OA infiltration in the perimeter zone 4, ACS";
 
   package Medium = Buildings.Media.Air "Moist Air"; // Moist air
 
