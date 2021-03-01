@@ -60,12 +60,12 @@ def run(plot=True, customized_kpi_config=None):
     url = 'http://0.0.0.0:5000'
     
     # Set simulation parameters
-    length = 1 * 1 * 3600
+    length = 365 * 24 * 3600
 
-    step = 300
+    step = 60
 
-    simStartTime = 0 * 0 * 3600
-    warmupPeriod = 0 * 1 * 3600
+    simStartTime = 0 * 7 * 3600
+    warmupPeriod = 0 * 7 * 3600
 
     # ---------------
 
@@ -366,56 +366,36 @@ def initializeControls():
          'oveDSet3_activate': 0,
          'oveDSet4_u': 0,
          'oveDSet4_activate': 0,
-         'oveVFRSet_u': 0,
-         'oveVFRSet_activate': 0,
-         'oveVFRSet1_u': 0,
-         'oveVFRSet1_activate': 0,
-         'oveVFRSet2_u': 0,
-         'oveVFRSet2_activate': 0,
-         'oveVFRSet3_u': 0,
-         'oveVFRSet3_activate': 0,
-         'oveVFRSet4_u': 0,
-         'oveVFRSet4_activate': 0,
-         'oveHeaOccSet_u': 273.15+21,
-         'oveHeaOccSet_activate': 0,
-         'oveHeaOccSet1_u': 273.15+21,
-         'oveHeaOccSet1_activate': 0,
-         'oveHeaOccSet2_u': 273.15+21,
-         'oveHeaOccSet2_activate': 0,
-         'oveHeaOccSet3_u': 273.15+21,
-         'oveHeaOccSet3_activate': 0,
-         'oveHeaOccSet4_u': 273.15+21,
-         'oveHeaOccSet4_activate': 0,
-         'oveHeaNonOccSet_u': 273.15+15.6,
-         'oveHeaNonOccSet_activate': 0,
-         'oveHeaNonOccSet1_u': 273.15+15.6,
-         'oveHeaNonOccSet1_activate': 0,
-         'oveHeaNonOccSet2_u': 273.15+15.6,
-         'oveHeaNonOccSet2_activate': 0,
-         'oveHeaNonOccSet3_u': 273.15+15.6,
-         'oveHeaNonOccSet3_activate': 0,
-         'oveHeaNonOccSet4_u': 273.15+15.6,
-         'oveHeaNonOccSet4_activate': 0,
-         'oveCooOccSet_u': 273.15+24,
-         'oveCooOccSet_activate': 0,
-         'oveCooOccSet1_u': 273.15+24,
-         'oveCooOccSet1_activate': 0,
-         'oveCooOccSet2_u': 273.15+24,
-         'oveCooOccSet2_activate': 0,
-         'oveCooOccSet3_u': 273.15+24,
-         'oveCooOccSet3_activate': 0,
-         'oveCooOccSet4_u': 273.15+24,
-         'oveCooOccSet4_activate': 0,
-         'oveCooNonOccSet_u': 273.15+26.7,
-         'oveCooNonOccSet_activate': 0,
-         'oveCooNonOccSet1_u': 273.15+26.7,
-         'oveCooNonOccSet1_activate': 0,
-         'oveCooNonOccSet2_u': 273.15+26.7,
-         'oveCooNonOccSet2_activate': 0,
-         'oveCooNonOccSet3_u': 273.15+26.7,
-         'oveCooNonOccSet3_activate': 0,
-         'oveCooNonOccSet4_u': 273.15+26.7,
-         'oveCooNonOccSet4_activate': 0
+         'oveVFRSet_u': 0.08,
+         'oveVFRSet_activate': 1,
+         'oveVFRSet1_u': 0.08,
+         'oveVFRSet1_activate': 1,
+         'oveVFRSet2_u': 0.08,
+         'oveVFRSet2_activate': 1,
+         'oveVFRSet3_u': 0.08,
+         'oveVFRSet3_activate': 1,
+         'oveVFRSet4_u': 0.08,
+         'oveVFRSet4_activate': 1,
+         'oveHeaSet_u': 273.15+21,
+         'oveHeaSet_activate': 0,
+         'oveHeaSet1_u': 273.15+21,
+         'oveHeaSet1_activate': 0,
+         'oveHeaSet2_u': 273.15+21,
+         'oveHeaSet2_activate': 0,
+         'oveHeaSet3_u': 273.15+21,
+         'oveHeaSet3_activate': 0,
+         'oveHeaSet4_u': 273.15+21,
+         'oveHeaSet4_activate': 0,
+         'oveCooSet_u': 273.15+24,
+         'oveCooSet_activate': 0,
+         'oveCooSet1_u': 273.15+24,
+         'oveCooSet1_activate': 0,
+         'oveCooSet2_u': 273.15+24,
+         'oveCooSet2_activate': 0,
+         'oveCooSet3_u': 273.15+24,
+         'oveCooSet3_activate': 0,
+         'oveCooSet4_u': 273.15+24,
+         'oveCooSet4_activate': 0
          }
 
     return u
