@@ -60,12 +60,12 @@ def run(plot=True, customized_kpi_config=None):
     url = 'http://0.0.0.0:5000'
     
     # Set simulation parameters
-    length = 365 * 24 * 3600
+    length = 1 * 24 * 3600
 
-    step = 60
+    step = 1800
 
-    simStartTime = 0 * 7 * 3600
-    warmupPeriod = 0 * 7 * 3600
+    simStartTime = 3 * 24 * 3600
+    warmupPeriod = 30 * 24 * 3600
 
     # ---------------
 
@@ -395,7 +395,17 @@ def initializeControls():
          'oveCooSet3_u': 273.15+24,
          'oveCooSet3_activate': 0,
          'oveCooSet4_u': 273.15+24,
-         'oveCooSet4_activate': 0
+         'oveCooSet4_activate': 0, 
+         'oveZero_u' : 1,
+         'oveZero_activate' : 1, 
+         'oveZero1_u' : 1,
+         'oveZero1_activate' : 1, 
+         'oveZero2_u' : 1,
+         'oveZero2_activate' : 1, 
+         'oveZero3_u' : 1,
+         'oveZero3_activate' : 1, 
+         'oveZero4_u' : 1,
+         'oveZero4_activate' : 1
          }
 
     return u
