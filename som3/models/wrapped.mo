@@ -62,13 +62,13 @@ model SOM3 "Spawn replica of the Reference Small Office Building"
         parameter Real stoOccSat = 17 "End of day (24-hour)";
           //Setpoints//
 
-        parameter Real heaOccSet = 273.15 + 21 "Heating setpoint for occupied mode";
+        parameter Real heaOccSet = 273.15 + 16 "Heating setpoint for occupied mode";
         parameter Real heaNonOccSet = 273.15 + 15.6 "Heating setpoint for non occupied mode";
         parameter Real maxRH = 0.5 "Relative Humidity setpoint";
         parameter Real minOACCOpeTemp = 273.15 "Minimum outside air temperature for cooling coil operation";
 
-        parameter Real cooOccSet = 273.15 + 24 "Cooling setpoint for occupied mode";
-        parameter Real cooNonOccSet = 273.15 + 26.7 "Cooling setpoint for non occupied mode";
+        parameter Real cooOccSet = 273.15 + 18 "Cooling setpoint for occupied mode";
+        parameter Real cooNonOccSet = 273.15 + 18 "Cooling setpoint for non occupied mode 26.7";
 
         parameter Real fanOccSet = 0.44 "Fan volumetric flow rate when operating (m3/s)";
         parameter Real fanMinVFR = 0.1 "Fan minimum volumetic flow rate (m3/s)";
@@ -251,7 +251,7 @@ model SOM3 "Spawn replica of the Reference Small Office Building"
           annotation (Placement(transformation(extent={{54,132},{74,152}})));
         Buildings.Controls.OBC.CDL.Continuous.Greater cooOAChk(h=1)
           annotation (Placement(transformation(extent={{26,102},{46,122}})));
-        Modelica.Blocks.Sources.RealExpression cooMinOATem(y=273.15 + 24)
+        Modelica.Blocks.Sources.RealExpression cooMinOATem(y=273.15)
         annotation (Placement(transformation(extent={{0,88},{20,108}})));
         Buildings.Controls.OBC.CDL.Logical.Switch heaSetpoint annotation (
             Placement(transformation(extent={{-222,238},{-202,258}})));
@@ -1921,7 +1921,7 @@ end SOM3;
 
   annotation (uses(Modelica(version="3.2.3"), Buildings(version="8.0.0")),
       experiment(
-      StartTime=13477400,
+      StartTime=16070400,
       StopTime=31536000,
       Interval=60,
       __Dymola_Algorithm="Dassl"));
