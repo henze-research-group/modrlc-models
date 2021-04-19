@@ -54,7 +54,7 @@ model SOM3 "Spawn replica of the Reference Small Office Building"
       model System3RBControls "Rule-Based controls replicating those of the DOE Ref. Small Office Building"
         //Parameters //
         //Schedule//
-
+        parameter Real nocc = 0;
         Real day "Day of the week (1: Mon, 7:Sun)";
         Real hou "Hour of the day (24-hour format)";
         parameter Real staOcc = 5 "Start of day (24-hour)";
@@ -214,7 +214,7 @@ model SOM3 "Spawn replica of the Reference Small Office Building"
           annotation (Placement(transformation(extent={{-340,208},{-320,228}})));
         Buildings.Controls.OBC.CDL.Continuous.Greater neeCool(h=2)
           annotation (Placement(transformation(extent={{8,132},{28,152}})));
-        Buildings.Controls.OBC.CDL.Logical.Timer tim(t=1800)
+        Buildings.Controls.OBC.CDL.Logical.Timer tim(t=600)
           annotation (Placement(transformation(extent={{84,80},{104,100}})));
         Buildings.Controls.OBC.CDL.Logical.Latch lat
           annotation (Placement(transformation(extent={{118,72},{138,92}})));
@@ -336,6 +336,22 @@ model SOM3 "Spawn replica of the Reference Small Office Building"
           reverseActing=true)
           "P, PI or PID control of the heater command. As per DOE Ref Small Office Building"
           annotation (Placement(transformation(extent={{230,-204},{250,-184}})));
+        Buildings.Controls.OBC.CDL.Continuous.Product pro
+          annotation (Placement(transformation(extent={{-156,-66},{-136,-46}})));
+        Buildings.Controls.OBC.CDL.Logical.Switch swi
+          annotation (Placement(transformation(extent={{-222,-60},{-202,-40}})));
+        Buildings.Controls.SetPoints.Table weekdaysocc(table=[5.9,0.0; 6,0.1; 6.9,0.1;
+              7,0.2; 7.9,0.2; 8,0.95; 11.9,0.95; 12,0.5; 12.9,0.5; 13,0.95; 16.9,0.95;
+              17,0.3; 17.9,0.3; 18,0.1; 19.9,0.1; 20,0.05])
+          annotation (Placement(transformation(extent={{-298,-46},{-278,-26}})));
+        Buildings.Controls.SetPoints.Table saturdayocc(table=[5.9,0; 6,0.1; 7.9,0.1; 8,
+              0.3; 11.9,0.3; 12,0.1; 16.9,0.1; 17,0])
+          annotation (Placement(transformation(extent={{-298,-76},{-278,-56}})));
+        Modelica.Blocks.Sources.RealExpression occs(y=nocc)
+          annotation (Placement(transformation(extent={{-188,-86},{-168,-66}})));
+        Buildings.Utilities.IO.SignalExchange.Read senOcc(description="occupancy sensor",
+            KPIs=Buildings.Utilities.IO.SignalExchange.SignalTypes.SignalsForKPIs.None)
+          annotation (Placement(transformation(extent={{-84,-66},{-64,-46}})));
       equation
 
         //Setpoints - General//
@@ -545,6 +561,22 @@ model SOM3 "Spawn replica of the Reference Small Office Building"
                 -190,-206},{-190,-184},{-630,-184}}, color={0,0,127}));
         connect(damPID.y, staCC1.u3) annotation (Line(points={{251,-194},{602,
                 -194},{602,136},{614,136}}, color={0,0,127}));
+        connect(swi.u1, weekdaysocc.y) annotation (Line(points={{-224,-42},{-252,-42},
+                {-252,-36},{-277,-36}}, color={0,0,127}));
+        connect(swi.u3, saturdayocc.y) annotation (Line(points={{-224,-58},{-252,-58},
+                {-252,-66},{-277,-66}}, color={0,0,127}));
+        connect(swi.y, pro.u1)
+          annotation (Line(points={{-200,-50},{-158,-50}}, color={0,0,127}));
+        connect(pro.u2, occs.y) annotation (Line(points={{-158,-62},{-162,-62},{-162,-76},
+                {-167,-76}}, color={0,0,127}));
+        connect(pro.y, senOcc.u)
+          annotation (Line(points={{-134,-56},{-86,-56}}, color={0,0,127}));
+        connect(weekdaysocc.u, houIn.y) annotation (Line(points={{-300,-36},{-532,-36},
+                {-532,266},{-561,266}}, color={0,0,127}));
+        connect(saturdayocc.u, houIn.y) annotation (Line(points={{-300,-66},{-530,-66},
+                {-530,-36},{-532,-36},{-532,266},{-561,266}}, color={0,0,127}));
+        connect(swi.u2, or2.u1) annotation (Line(points={{-224,-50},{-346,-50},{-346,218},
+                {-342,218}}, color={255,0,255}));
         annotation (Icon(coordinateSystem(extent={{-600,-300},{640,360}}),
                          graphics={Rectangle(extent={{-600,364},{642,-300}},
                   lineColor={28,108,200})}),Inline=true,GenerateEvents=true,
@@ -979,7 +1011,7 @@ model SOM3 "Spawn replica of the Reference Small Office Building"
       outputUnixTimeStamp=false)
                     "Calendar Time"
     annotation (Placement(transformation(extent={{-268,136},{-236,168}})));
-  ASHRAESystem3 HVAC(mass_flow_nominal = 0.527, heaNomPow = 14035.23, CCNomPow = -8607.92, controls(fanOccSet = 0.4487, minOAHVACOff =  0.080548, minOAHVACOn = 0.1795)) "Core zone HVAC system"
+  ASHRAESystem3 HVAC(mass_flow_nominal = 0.527, heaNomPow = 14035.23, CCNomPow = -8607.92, controls(nocc = 8.05, fanOccSet = 0.4487, minOAHVACOff =  0.080548, minOAHVACOn = 0.1795)) "Core zone HVAC system"
     annotation (Placement(transformation(extent={{-98,-14},{-42,16}})));
   Modelica.Blocks.Math.IntegerToReal integerToReal
     annotation (Placement(transformation(extent={{-206,152},{-186,172}})));
@@ -1007,22 +1039,22 @@ Buildings.Utilities.IO.SignalExchange.Read senHeaPow(u(min=0.0, max=15000.0, uni
   ASHRAESystem3 HVAC1(mass_flow_nominal = 0.435, heaNomPow = 11316.80, CCNomPow = -6909.58, fan(per(pressure(V_flow={0.3702,0.3703}, dp={622.1,622}),
       use_powerCharacteristic=false,
       hydraulicEfficiency(V_flow={0.3703}, eta={0.65}),
-      motorEfficiency(V_flow={0.3703}, eta={0.825}))), controls(fanOccSet = 0.3703, minOAHVACOff =  0.061060, minOAHVACOn =  0.1649))   "Core zone HVAC system"
+      motorEfficiency(V_flow={0.3703}, eta={0.825}))), controls(nocc = 6.1, fanOccSet = 0.3703, minOAHVACOff =  0.061060, minOAHVACOn =  0.1649))   "Core zone HVAC system"
     annotation (Placement(transformation(extent={{-96,-94},{-40,-64}})));
   ASHRAESystem3 HVAC2(mass_flow_nominal = 0.423, heaNomPow = 9873.02, CCNomPow = -6137.71, fan(per(pressure(V_flow={0.3603,0.3604}, dp={622.1,622}),
       use_powerCharacteristic=false,
       hydraulicEfficiency(V_flow={0.3604}, eta={0.65}),
-      motorEfficiency(V_flow={0.3604}, eta={0.825}))), controls(fanOccSet = 0.3604, minOAHVACOff = 0.036222, minOAHVACOn =  0.1005))   "Core zone HVAC system"
+      motorEfficiency(V_flow={0.3604}, eta={0.825}))), controls(nocc = 3.6, fanOccSet = 0.3604, minOAHVACOff = 0.036222, minOAHVACOn =  0.1005))   "Core zone HVAC system"
     annotation (Placement(transformation(extent={{-96,-184},{-40,-154}})));
   ASHRAESystem3 HVAC3(mass_flow_nominal = 0.449, heaNomPow = 11587.62, CCNomPow = -7081.44, fan(per(pressure(V_flow={0.3823,0.3824}, dp={622.1,622}),
       use_powerCharacteristic=false,
       hydraulicEfficiency(V_flow={0.3824}, eta={0.65}),
-      motorEfficiency(V_flow={0.3824}, eta={0.825}))), controls(fanOccSet = 0.3824, minOAHVACOff = 0.061060, minOAHVACOn = 0.1597))   "Core zone HVAC system"
+      motorEfficiency(V_flow={0.3824}, eta={0.825}))), controls(nocc = 6.1,fanOccSet = 0.3824, minOAHVACOff = 0.061060, minOAHVACOn = 0.1597))   "Core zone HVAC system"
     annotation (Placement(transformation(extent={{-98,-272},{-42,-242}})));
   ASHRAESystem3 HVAC4(mass_flow_nominal = 0.414, heaNomPow = 9691.66, CCNomPow = -6779.76, fan(per(pressure(V_flow={0.3522,0.3523}, dp={622.1,622}),
       use_powerCharacteristic=false,
       hydraulicEfficiency(V_flow={0.3523}, eta={0.65}),
-      motorEfficiency(V_flow={0.3523}, eta={0.825}))), controls(fanOccSet = 0.3523, minOAHVACOff = 0.036222, minOAHVACOn = 0.1028))   "Core zone HVAC system"
+      motorEfficiency(V_flow={0.3523}, eta={0.825}))), controls(nocc = 3.6,fanOccSet = 0.3523, minOAHVACOff = 0.036222, minOAHVACOn = 0.1028))   "Core zone HVAC system"
     annotation (Placement(transformation(extent={{-96,-350},{-40,-320}})));
   Buildings.ThermalZones.EnergyPlus.ThermalZone perZon1(
       zoneName="Perimeter_ZN_1",
@@ -1791,6 +1823,8 @@ end SOM3;
     "Core zone OA volumetric flow rate";
   Modelica.Blocks.Interfaces.RealOutput senPowCor_y(unit="W", min = 0, max = 25000) = mod.senPowCor.y
     "Core zone fAHU power demand";
+  Modelica.Blocks.Interfaces.RealOutput senOcc_y(unit="1", min = 0, max = 30) = mod.HVAC.controls.senOcc.y
+    "Core zone occupancy sensor";
 
   Modelica.Blocks.Interfaces.RealOutput senTRoom1_y(unit="K", min = 270, max = 310) = mod.HVAC1.senTemRoo.y
     "Perimeter zone 1 Temperature";
@@ -1808,6 +1842,8 @@ end SOM3;
     "Perimeter zone 1 OA volumetric flow rate";
   Modelica.Blocks.Interfaces.RealOutput senPowPer1_y(unit="W", min = 0, max = 25000) = mod.senPowPer1.y
     "Perimeter Zone 1 AHU power demand";
+  Modelica.Blocks.Interfaces.RealOutput senOcc1_y(unit="1", min = 0, max = 30) = mod.HVAC1.controls.senOcc.y
+    "Perimeter zone 1 occupancy sensor";
 
   Modelica.Blocks.Interfaces.RealOutput senTRoom2_y(unit="K", min = 270, max = 310) = mod.HVAC2.senTemRoo.y
     "Perimeter zone 2 Temperature";
@@ -1825,6 +1861,8 @@ end SOM3;
     "Perimeter zone 2 OA volumetric flow rate";
   Modelica.Blocks.Interfaces.RealOutput senPowPer2_y(unit="W", min = 0, max = 25000) = mod.senPowPer2.y
     "Perimeter Zone 2 AHU power demand";
+  Modelica.Blocks.Interfaces.RealOutput senOcc2_y(unit="1", min = 0, max = 30) = mod.HVAC2.controls.senOcc.y
+    "Perimeter zone 2 occupancy sensor";
 
   Modelica.Blocks.Interfaces.RealOutput senTRoom3_y(unit="K", min = 270, max = 310) = mod.HVAC3.senTemRoo.y
     "Perimeter zone 3 Temperature";
@@ -1842,6 +1880,8 @@ end SOM3;
     "Perimeter zone 3 OA volumetric flow rate";
   Modelica.Blocks.Interfaces.RealOutput senPowPer3_y(unit="W", min = 0, max = 25000) = mod.senPowPer3.y
     "Perimeter Zone 3 AHU power demand";
+  Modelica.Blocks.Interfaces.RealOutput senOcc3_y(unit="1", min = 0, max = 30) = mod.HVAC3.controls.senOcc.y
+    "Perimeter zone 3 occupancy sensor";
 
   Modelica.Blocks.Interfaces.RealOutput senTRoom4_y(unit="K", min = 270, max = 310) = mod.HVAC4.senTemRoo.y
     "Perimeter zone 4 Temperature";
@@ -1859,6 +1899,8 @@ end SOM3;
     "Perimeter zone 4 OA volumetric flow rate";
   Modelica.Blocks.Interfaces.RealOutput senPowPer4_y(unit="W", min = 0, max = 25000) = mod.senPowPer4.y
     "Perimeter Zone 4 AHU power demand";
+  Modelica.Blocks.Interfaces.RealOutput senOcc4_y(unit="1", min = 0, max = 30) = mod.HVAC4.controls.senOcc.y
+    "Perimeter zone 4 occupancy sensor";
 
   Modelica.Blocks.Interfaces.RealOutput senMin_y(unit="1") = mod.senMin.y
     "Hour of the day (24hr format)";
@@ -1921,7 +1963,6 @@ end SOM3;
 
   annotation (uses(Modelica(version="3.2.3"), Buildings(version="8.0.0")),
       experiment(
-      StartTime=16070400,
       StopTime=31536000,
       Interval=60,
       __Dymola_Algorithm="Dassl"));
