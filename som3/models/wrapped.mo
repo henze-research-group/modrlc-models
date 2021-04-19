@@ -62,13 +62,13 @@ model SOM3 "Spawn replica of the Reference Small Office Building"
         parameter Real stoOccSat = 17 "End of day (24-hour)";
           //Setpoints//
 
-        parameter Real heaOccSet = 273.15 + 16 "Heating setpoint for occupied mode";
+        parameter Real heaOccSet = 273.15 + 21 "Heating setpoint for occupied mode";
         parameter Real heaNonOccSet = 273.15 + 15.6 "Heating setpoint for non occupied mode";
         parameter Real maxRH = 0.5 "Relative Humidity setpoint";
         parameter Real minOACCOpeTemp = 273.15 "Minimum outside air temperature for cooling coil operation";
 
-        parameter Real cooOccSet = 273.15 + 18 "Cooling setpoint for occupied mode";
-        parameter Real cooNonOccSet = 273.15 + 18 "Cooling setpoint for non occupied mode 26.7";
+        parameter Real cooOccSet = 273.15 + 24 "Cooling setpoint for occupied mode";
+        parameter Real cooNonOccSet = 273.15 + 26.7 "Cooling setpoint for non occupied mode 26.7";
 
         parameter Real fanOccSet = 0.44 "Fan volumetric flow rate when operating (m3/s)";
         parameter Real fanMinVFR = 0.1 "Fan minimum volumetic flow rate (m3/s)";
@@ -214,21 +214,6 @@ model SOM3 "Spawn replica of the Reference Small Office Building"
           annotation (Placement(transformation(extent={{-340,208},{-320,228}})));
         Buildings.Controls.OBC.CDL.Continuous.Greater neeCool(h=2)
           annotation (Placement(transformation(extent={{8,132},{28,152}})));
-        Buildings.Controls.OBC.CDL.Logical.Timer tim(t=600)
-          annotation (Placement(transformation(extent={{84,80},{104,100}})));
-        Buildings.Controls.OBC.CDL.Logical.Latch lat
-          annotation (Placement(transformation(extent={{118,72},{138,92}})));
-        Buildings.Controls.OBC.CDL.Logical.Not ccTurnedOff
-          annotation (Placement(transformation(extent={{60,42},{80,62}})));
-        Buildings.Controls.OBC.CDL.Logical.And and2
-          annotation (Placement(transformation(extent={{152,132},{172,152}})));
-        Buildings.Controls.OBC.CDL.Logical.Edge risEdgCC
-          annotation (Placement(transformation(extent={{90,42},{110,62}})));
-        Buildings.Controls.OBC.CDL.Logical.Not ccTurnedOff1 annotation (Placement(
-              transformation(
-              extent={{-10,-10},{10,10}},
-              rotation=180,
-              origin={162,118})));
         Buildings.Controls.OBC.CDL.Logical.Or or1
           annotation (Placement(transformation(extent={{324,152},{344,172}})));
         Buildings.Controls.OBC.CDL.Logical.Switch fanSetLinear
@@ -243,10 +228,6 @@ model SOM3 "Spawn replica of the Reference Small Office Building"
           annotation (Placement(transformation(extent={{478,108},{498,128}})));
         Buildings.Controls.OBC.CDL.Continuous.Add add2
           annotation (Placement(transformation(extent={{516,114},{536,134}})));
-        Buildings.Controls.OBC.CDL.Logical.Pre pre
-          annotation (Placement(transformation(extent={{-10,-10},{10,10}},
-              rotation=180,
-              origin={122,118})));
         Buildings.Controls.OBC.CDL.Logical.And and1
           annotation (Placement(transformation(extent={{54,132},{74,152}})));
         Buildings.Controls.OBC.CDL.Continuous.Greater cooOAChk(h=1)
@@ -423,23 +404,8 @@ model SOM3 "Spawn replica of the Reference Small Office Building"
           annotation (Line(points={{-224,194},{-261,194}},   color={0,0,127}));
         connect(neeCool.u1, senTemRet) annotation (Line(points={{6,142},{-20,142},
               {-20,288},{-640,288}},      color={0,0,127}));
-        connect(risEdgCC.y, lat.clr) annotation (Line(points={{112,52},{112,76},
-              {116,76}},           color={255,0,255}));
-        connect(lat.y, and2.u2) annotation (Line(points={{140,82},{144,82},{144,134},{
-                150,134}},   color={255,0,255}));
-        connect(and2.y, ccTurnedOff1.u) annotation (Line(points={{174,142},{178,142},{
-                178,118},{174,118}},
-                                 color={255,0,255}));
-        connect(ccTurnedOff.y, risEdgCC.u)
-          annotation (Line(points={{82,52},{88,52}},        color={255,0,255}));
-        connect(tim.passed, lat.u)
-          annotation (Line(points={{106,82},{116,82}},     color={255,0,255}));
-        connect(or1.u2, and2.y) annotation (Line(points={{322,154},{240,154},{240,142},
-                {174,142}},color={255,0,255}));
         connect(fanSetpointOccupied1.y, fanSetLinear.u1) annotation (Line(points={{383,126},
                 {392,126}},                                  color={0,0,127}));
-        connect(booToRea.u, and2.y) annotation (Line(points={{182,4},{174,4},{174,90},
-                {190,90},{190,142},{174,142}}, color={255,0,255}));
         connect(fanSetLinear.y, feedback.u1)
           annotation (Line(points={{416,118},{438,118}},   color={0,0,127}));
         connect(feedback.y, gai.u)
@@ -450,17 +416,8 @@ model SOM3 "Spawn replica of the Reference Small Office Building"
                 144},{430,144},{430,118},{438,118}},         color={0,0,127}));
         connect(feedback.u2, senFanVFR) annotation (Line(points={{450,106},{450,-240},
                 {-632,-240}}, color={0,0,127}));
-        connect(ccTurnedOff1.y, pre.u)
-          annotation (Line(points={{150,118},{134,118}}, color={255,0,255}));
-        connect(pre.y, tim.u) annotation (Line(points={{110,118},{72,118},{72,
-                90},{82,90}}, color={255,0,255}));
       connect(neeCool.y, and1.u1)
         annotation (Line(points={{30,142},{52,142}}, color={255,0,255}));
-      connect(and1.y, and2.u1)
-        annotation (Line(points={{76,142},{150,142}}, color={255,0,255}));
-      connect(ccTurnedOff.u, and2.u1) annotation (Line(points={{58,52},{56,52},{
-              56,82},{68,82},{68,130},{80,130},{80,142},{150,142}}, color={255,0,
-              255}));
       connect(cooMinOATem.y, cooOAChk.u2) annotation (Line(points={{21,98},{22,98},
               {22,104},{24,104}}, color={0,0,127}));
       connect(cooOAChk.u1, senTemOut) annotation (Line(points={{24,112},{-60,112},
@@ -577,6 +534,10 @@ model SOM3 "Spawn replica of the Reference Small Office Building"
                 {-530,-36},{-532,-36},{-532,266},{-561,266}}, color={0,0,127}));
         connect(swi.u2, or2.u1) annotation (Line(points={{-224,-50},{-346,-50},{-346,218},
                 {-342,218}}, color={255,0,255}));
+        connect(and1.y, or1.u2) annotation (Line(points={{76,142},{200,142},{
+                200,154},{322,154}}, color={255,0,255}));
+        connect(booToRea.u, or1.u2) annotation (Line(points={{182,4},{174,4},{
+                174,142},{200,142},{200,154},{322,154}}, color={255,0,255}));
         annotation (Icon(coordinateSystem(extent={{-600,-300},{640,360}}),
                          graphics={Rectangle(extent={{-600,364},{642,-300}},
                   lineColor={28,108,200})}),Inline=true,GenerateEvents=true,
