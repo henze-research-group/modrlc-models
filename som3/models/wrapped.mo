@@ -212,7 +212,7 @@ model SOM3 "Spawn replica of the Reference Small Office Building"
               transformation(extent={{-370,228},{-350,248}})));
         Buildings.Controls.OBC.CDL.Logical.Or or2
           annotation (Placement(transformation(extent={{-340,208},{-320,228}})));
-        Buildings.Controls.OBC.CDL.Continuous.Greater neeCool(h=2)
+        Buildings.Controls.OBC.CDL.Continuous.Greater neeCool(h=0.5)
           annotation (Placement(transformation(extent={{8,132},{28,152}})));
         Buildings.Controls.OBC.CDL.Logical.Or or1
           annotation (Placement(transformation(extent={{324,152},{344,172}})));
