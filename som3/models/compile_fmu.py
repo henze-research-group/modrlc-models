@@ -11,7 +11,7 @@ import logging
 
 from pyfmi import load_fmu
 import pymodelica
-
+from parsing import parser
 import os
 import shutil
 import sys
@@ -38,11 +38,22 @@ sys.stdout.flush()
 
 ######################################################################
 # Compile fmu
+
+# DEFINE MODEL
+# ------------
+mopath = 'wrapped.mo';
+modelpath = 'wrapped'
+# ------------
+
+# COMPILE FMU
+# -----------
+#fmupath = parser.export_fmu(modelpath, [mopath])
+
 fmu_name = compile_fmu(model, 'wrapped.mo',
                        version="2.0",
                        compiler_log_level='debug', #, 'warning',
-                       compiler_options = {"generate_html_diagnostics" : True, "nle_solver_tol_factor": 1e-2})
-print(fmu_name)
+                       compiler_options = {"generate_html_diagnostics" : True, "nle_solver_tol_factor": 1e-6})
+#print(fmupath)
 
 ######################################################################
     
