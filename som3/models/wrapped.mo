@@ -110,12 +110,6 @@ model SOM3 "Spawn replica of the Reference Small Office Building"
         //Buildings.Controls.OBC.CDL.Logical.TimerAccumulating timerShortCycling(t=timShoCyc)
         //  annotation (Placement(transformation(extent={{32,4},{52,24}})));
 
-        Modelica.Blocks.Interfaces.RealOutput outCCSet annotation (Placement(
-              transformation(extent={{660,174},{698,212}}),
-                                                          iconTransformation(
-              extent={{-19,-19},{19,19}},
-              rotation=0,
-              origin={713,63})));
         Modelica.Blocks.Interfaces.RealInput senFanVFR annotation (Placement(
               transformation(extent={{-652,-260},{-612,-220}}),
                                                               iconTransformation(
@@ -221,7 +215,7 @@ model SOM3 "Spawn replica of the Reference Small Office Building"
         Modelica.Blocks.Sources.RealExpression fanSetpointOccupied1(y=fanOccSet)
           annotation (Placement(transformation(extent={{278,122},{298,142}})));
         Buildings.Controls.OBC.CDL.Conversions.BooleanToReal booToRea
-          annotation (Placement(transformation(extent={{184,-6},{204,14}})));
+          annotation (Placement(transformation(extent={{100,132},{120,152}})));
         Buildings.Controls.OBC.CDL.Logical.And and1
           annotation (Placement(transformation(extent={{54,132},{74,152}})));
         Buildings.Controls.OBC.CDL.Continuous.Greater cooOAChk(h=1)
@@ -282,8 +276,8 @@ model SOM3 "Spawn replica of the Reference Small Office Building"
           annotation (Placement(transformation(extent={{-84,-66},{-64,-46}})));
         Buildings.Controls.Continuous.LimPID conPID(
           controllerType=Modelica.Blocks.Types.SimpleController.PI,
-          k=0.01,
-          Ti=120,
+          k=0.5,
+          Ti=200,
           yMax=1,
           yMin=0,
           initType=Modelica.Blocks.Types.InitPID.NoInit,
@@ -316,6 +310,23 @@ model SOM3 "Spawn replica of the Reference Small Office Building"
           reset=Buildings.Types.Reset.Parameter,
           y_reset=fanMinVFR)
           annotation (Placement(transformation(extent={{474,112},{494,132}})));
+        Buildings.Utilities.IO.SignalExchange.Overwrite oveHCSet(u(
+            unit="1",
+            min=0,
+            max=1), description="Heating Coil setpoint override")
+          "\"BOPTEST override for the HC control\""
+          annotation (Placement(transformation(extent={{110,300},{130,320}})));
+        Buildings.Utilities.IO.SignalExchange.Overwrite oveCCSet(u(
+            unit="1",
+            min=0,
+            max=1), description="Cooling Coil setpoint override")
+          "\"BOPTEST override for the CC control"
+          annotation (Placement(transformation(extent={{160,132},{180,152}})));
+        Modelica.Blocks.Math.RealToBoolean reaToBooCC
+          annotation (Placement(transformation(extent={{210,132},{230,152}})));
+        Modelica.Blocks.Interfaces.BooleanOutput outCCSet annotation (Placement(
+              transformation(extent={{694,288},{714,308}}), iconTransformation(
+                extent={{694,288},{714,308}})));
       equation
 
         //Setpoints - General//
@@ -445,20 +456,12 @@ model SOM3 "Spawn replica of the Reference Small Office Building"
                 {-530,-36},{-532,-36},{-532,266},{-561,266}}, color={0,0,127}));
         connect(swi.u2, or2.u1) annotation (Line(points={{-224,-50},{-346,-50},{-346,218},
                 {-342,218}}, color={255,0,255}));
-        connect(and1.y, or1.u2) annotation (Line(points={{76,142},{200,142},{
-                200,154},{322,154}}, color={255,0,255}));
-        connect(booToRea.u, or1.u2) annotation (Line(points={{182,4},{174,4},{
-                174,142},{200,142},{200,154},{322,154}}, color={255,0,255}));
         connect(gre.u1, outHeaSet) annotation (Line(points={{272,230},{256,230},
                 {256,294},{406,294},{406,297},{679,297}}, color={0,0,127}));
-        connect(booToRea.y, outCCSet) annotation (Line(points={{206,4},{588,4},{
-                588,193},{679,193}}, color={0,0,127}));
         connect(conPID.u_s, oveHeaSetpoint.y) annotation (Line(points={{40,310},{-64,310},
                 {-64,248},{-165,248}}, color={0,0,127}));
         connect(conPID.u_m, senTemRet) annotation (Line(points={{52,298},{20,298},{20,
                 288},{-640,288}}, color={0,0,127}));
-        connect(conPID.y, outHeaSet) annotation (Line(points={{63,310},{168,310},{168,
-                294},{406,294},{406,297},{679,297}}, color={0,0,127}));
         connect(les.u1, senTemRet) annotation (Line(points={{-54,246},{-52,246},
                 {-52,288},{-640,288}}, color={0,0,127}));
         connect(les.u2, oveHeaSetpoint.y) annotation (Line(points={{-54,238},{
@@ -479,11 +482,25 @@ model SOM3 "Spawn replica of the Reference Small Office Building"
                 110},{488,-240},{-632,-240}}, color={0,0,127}));
         connect(fanSetpointOccupied1.y, fanSetLinear.u1) annotation (Line(
               points={{299,132},{348,132},{348,126},{392,126}}, color={0,0,127}));
-        connect(fanSetpointOccupied.y, fanSetLinear.u3) annotation (Line(points
-              ={{299,110},{346,110},{346,110},{392,110}}, color={0,0,127}));
+        connect(fanSetpointOccupied.y, fanSetLinear.u3) annotation (Line(points=
+               {{299,110},{346,110},{346,110},{392,110}}, color={0,0,127}));
         connect(fanPID.trigger, fanSetLinear.u2) annotation (Line(points={{476,
                 110},{432,110},{432,92},{386,92},{386,118},{392,118}}, color={
                 255,0,255}));
+        connect(conPID.y, oveHCSet.u)
+          annotation (Line(points={{63,310},{108,310}}, color={0,0,127}));
+        connect(oveHCSet.y, outHeaSet) annotation (Line(points={{131,310},{256,294},
+                {406,294},{406,297},{679,297}}, color={0,0,127}));
+        connect(and1.y, booToRea.u)
+          annotation (Line(points={{76,142},{98,142}}, color={255,0,255}));
+        connect(oveCCSet.y,reaToBooCC. u)
+          annotation (Line(points={{181,142},{208,142}}, color={0,0,127}));
+        connect(oveCCSet.u, booToRea.y)
+          annotation (Line(points={{158,142},{122,142}}, color={0,0,127}));
+        connect(reaToBooCC.y, or1.u2) annotation (Line(points={{231,142},{274.5,
+                142},{274.5,154},{322,154}}, color={255,0,255}));
+        connect(outCCSet, or1.u2) annotation (Line(points={{704,298},{704,154},{
+                322,154}}, color={255,0,255}));
         annotation (Icon(coordinateSystem(extent={{-600,-300},{640,360}}),
                          graphics={Rectangle(extent={{-600,364},{642,-300}},
                   lineColor={28,108,200})}),Inline=true,GenerateEvents=true,
@@ -687,18 +704,6 @@ model SOM3 "Spawn replica of the Reference Small Office Building"
 
       // Signal Exchange blocks - BOPTEST //
 
-      Buildings.Utilities.IO.SignalExchange.Overwrite oveHCSet(u(
-          unit="1",
-          min=0,
-          max=1), description="Heating Coil setpoint override")
-        "\"BOPTEST override for the HC control\""
-        annotation (Placement(transformation(extent={{-226,42},{-206,62}})));
-      Buildings.Utilities.IO.SignalExchange.Overwrite oveCCSet(u(
-          unit="1",
-          min=0,
-          max=1), description="Cooling Coil setpoint override")
-        "\"BOPTEST override for the CC control"
-        annotation (Placement(transformation(extent={{-226,10},{-206,30}})));
       Buildings.Utilities.IO.SignalExchange.Overwrite oveFanSet(u(
           unit="1",
           min=0,
@@ -717,8 +722,6 @@ model SOM3 "Spawn replica of the Reference Small Office Building"
             extent={{-20,-20},{20,20}},
             rotation=0,
             origin={-398,-52})));
-      Modelica.Blocks.Math.RealToBoolean reaToBooCC
-        annotation (Placement(transformation(extent={{-186,10},{-166,30}})));
 
     Buildings.Utilities.IO.SignalExchange.Read senTemRoo(y(min=260.0, max=310.0, unit="K"), description=
           "Room return temperature", KPIs=Buildings.Utilities.IO.SignalExchange.SignalTypes.SignalsForKPIs.AirZoneTemperature)
@@ -806,18 +809,11 @@ model SOM3 "Spawn replica of the Reference Small Office Building"
         annotation (Line(points={{-400,-200},{-316,-200}}, color={0,127,255}));
       connect(volSenOA.port_b, mixDam.port_Out) annotation (Line(points={{-296,-200},
               {-290,-200},{-290,-200.4},{-274,-200.4}}, color={0,127,255}));
-      connect(oveHCSet.y, hea.u) annotation (Line(points={{-205,52},{48,52},{48,-72.4},
-              {76.2,-72.4}}, color={0,0,127}));
       connect(oveFanSet.y, fan.m_flow_in) annotation (Line(points={{-205,-16},{211,
             -16},{211,-59.8}},
                             color={0,0,127}));
       connect(oveDamSet.y, mixDam.y) annotation (Line(points={{-205,-52},{-198,-52},
               {-198,-68},{-243,-68},{-243,-181.8}}, color={0,0,127}));
-      connect(oveCCSet.y, reaToBooCC.u)
-        annotation (Line(points={{-205,20},{-188,20}}, color={0,0,127}));
-      connect(reaToBooCC.y, sinSpeDX.on) annotation (Line(points={{-165,20},{
-              -132,20},{-132,-61.8},{-98.9,-61.8}},
-                                            color={255,0,255}));
       connect(temSenRet, senTemRoo.u) annotation (Line(points={{-414,-118},{-418,
               -118},{-418,6},{-418,6}}, color={0,0,127}));
       connect(senRelHum.phi, senRelHumOut.u) annotation (Line(points={{89.9,-249},{70.05,
@@ -834,44 +830,41 @@ model SOM3 "Spawn replica of the Reference Small Office Building"
               {426,-84},{404,-84}}, color={0,127,255}));
       connect(volSenSup.port_b, senTSup.port_a)
         annotation (Line(points={{366,-84},{384,-84}}, color={0,127,255}));
-      connect(controls.outHeaSet, oveHCSet.u) annotation (Line(points={{
-              -288.469,33.8909},{-259.235,33.8909},{-259.235,52},{-228,52}},
-                                                           color={0,0,127}));
-      connect(controls.outCCSet, oveCCSet.u) annotation (Line(points={{-288.469,
-              30.4},{-258.235,30.4},{-258.235,20},{-228,20}},
-                                                        color={0,0,127}));
-      connect(controls.outFanSet, oveFanSet.u) annotation (Line(points={{
-              -288.469,26.9091},{-259.235,26.9091},{-259.235,-16},{-228,-16}},
+      connect(controls.outFanSet, oveFanSet.u) annotation (Line(points={{-288.469,
+              26.9091},{-259.235,26.9091},{-259.235,-16},{-228,-16}},
                                                              color={0,0,127}));
-      connect(controls.outDamSet, oveDamSet.u) annotation (Line(points={{
-              -288.469,22.8364},{-288.469,-34.5818},{-228,-34.5818},{-228,-52}},
+      connect(controls.outDamSet, oveDamSet.u) annotation (Line(points={{-288.469,
+              22.8364},{-288.469,-34.5818},{-228,-34.5818},{-228,-52}},
                                                                color={0,0,127}));
-      connect(controls.senTemOut, senTemOA) annotation (Line(points={{-316.713,
-              48.0727},{-316.713,48},{-346,48},{-346,-14},{-414,-14},{-414,-76}},
-                                                                         color={0,0,
+      connect(controls.senTemOut, senTemOA) annotation (Line(points={{-316.713,48.0727},
+              {-316.713,48},{-346,48},{-346,-14},{-414,-14},{-414,-76}}, color={0,0,
               127}));
-      connect(controls.senTemSup, senTemSup.y) annotation (Line(points={{
-              -316.587,40.0727},{-316.587,41.0363},{-395,41.0363},{-395,40}},
+      connect(controls.senTemSup, senTemSup.y) annotation (Line(points={{-316.587,
+              40.0727},{-316.587,41.0363},{-395,41.0363},{-395,40}},
                                                             color={0,0,127}));
-      connect(controls.senTemRet, senTemRoo.y) annotation (Line(points={{
-              -316.587,31.4909},{-355.293,31.4909},{-355.293,6},{-395,6}},
+      connect(controls.senTemRet, senTemRoo.y) annotation (Line(points={{-316.587,
+              31.4909},{-355.293,31.4909},{-355.293,6},{-395,6}},
                                                          color={0,0,127}));
-      connect(controls.senFanVFR, senVolSup.y) annotation (Line(points={{
-              -316.629,22.4727},{-334,22.4727},{-334,-156},{-285,-156}},
+      connect(controls.senFanVFR, senVolSup.y) annotation (Line(points={{-316.629,
+              22.4727},{-334,22.4727},{-334,-156},{-285,-156}},
                                                        color={0,0,127}));
-      connect(controls.senDamVFR, senVolOA.y) annotation (Line(points={{
-              -316.587,13.7455},{-344,13.7455},{-344,-106},{-366,-106},{-366,
-              -174},{-347,-174}},
+      connect(controls.senDamVFR, senVolOA.y) annotation (Line(points={{-316.587,
+              13.7455},{-344,13.7455},{-344,-106},{-366,-106},{-366,-174},{-347,
+              -174}},
             color={0,0,127}));
-      connect(controls.senHRRet, senRelHumOut.y) annotation (Line(points={{
-              -316.629,5.89091},{-316.629,-132},{27,-132}},
-                                                   color={0,0,127}));
+      connect(controls.senHRRet, senRelHumOut.y) annotation (Line(points={{-316.629,
+              5.89091},{-316.629,-132},{27,-132}}, color={0,0,127}));
       connect(senTemSup.u, senTSup.T) annotation (Line(points={{-418,40},{-426,40},{
               -426,80},{394,80},{394,-73}}, color={0,0,127}));
       connect(fan.port_b, volSenSup.port_a) annotation (Line(points={{232,-85},
               {292,-85},{292,-84},{346,-84}}, color={0,127,255}));
       connect(senTemOA, sinSpeDX.TConIn) annotation (Line(points={{-414,-76},{
               -258,-76},{-258,-76.3},{-98.9,-76.3}}, color={0,0,127}));
+      connect(controls.outHeaSet, hea.u) annotation (Line(points={{-288.469,33.8909},
+              {-106.234,33.8909},{-106.234,-72.4},{76.2,-72.4}}, color={0,0,127}));
+      connect(sinSpeDX.on, controls.outCCSet) annotation (Line(points={{-98.9,-61.8},
+              {-194.45,-61.8},{-194.45,47.4909},{-288.658,47.4909}}, color={255,
+              0,255}));
       annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-420,-260},
                 {440,220}}),     graphics={
           Rectangle(
@@ -1822,46 +1815,47 @@ end SOM3;
 
   // Original model
   SOM3 mod(HVAC(
-    oveHCSet(      uExt(y=oveHCSet_u), activate(y=oveHCSet_activate)),
-    oveCCSet(      uExt(y=oveCC_u), activate(y=oveCC_activate)),
     oveDamSet(      uExt(y=oveDSet_u), activate(y=oveDSet_activate)),
     oveFanSet(      uExt(y=oveVFRSet_u), activate(y=oveVFRSet_activate)),
     controls(
       oveHeaSetpoint(      uExt(y=oveHeaSet_u), activate(y=oveHeaSet_activate)),
-      oveCooSetpoint(      uExt(y=oveCooSet_u), activate(y=oveCooSet_activate)))),
+      oveCooSetpoint(      uExt(y=oveCooSet_u), activate(y=oveCooSet_activate)),
+      oveHCSet(      uExt(y=oveHCSet_u), activate(y=oveHCSet_activate)),
+    oveCCSet(      uExt(y=oveCC_u), activate(y=oveCC_activate)))),
     HVAC1(
-    oveHCSet(      uExt(y=oveHCSet1_u), activate(y=oveHCSet1_activate)),
-    oveCCSet(      uExt(y=oveCC1_u), activate(y=oveCC1_activate)),
     oveDamSet(      uExt(y=oveDSet1_u), activate(y=oveDSet1_activate)),
     oveFanSet(      uExt(y=oveVFRSet1_u), activate(y=oveVFRSet1_activate)),
     controls(
       oveHeaSetpoint(      uExt(y=oveHeaSet1_u), activate(y=oveHeaSet1_activate)),
-      oveCooSetpoint(      uExt(y=oveCooSet1_u), activate(y=oveCooSet1_activate)))),
+      oveCooSetpoint(      uExt(y=oveCooSet1_u), activate(y=oveCooSet1_activate)),
+      oveHCSet(      uExt(y=oveHCSet1_u), activate(y=oveHCSet1_activate)),
+    oveCCSet(      uExt(y=oveCC1_u), activate(y=oveCC1_activate)))),
     HVAC2(
-    oveHCSet(      uExt(y=oveHCSet2_u), activate(y=oveHCSet2_activate)),
-    oveCCSet(      uExt(y=oveCC2_u), activate(y=oveCC2_activate)),
     oveDamSet(      uExt(y=oveDSet2_u), activate(y=oveDSet2_activate)),
     oveFanSet(      uExt(y=oveVFRSet2_u), activate(y=oveVFRSet2_activate)),
     controls(
       oveHeaSetpoint(      uExt(y=oveHeaSet2_u), activate(y=oveHeaSet2_activate)),
-      oveCooSetpoint(      uExt(y=oveCooSet2_u), activate(y=oveCooSet2_activate)))),
+      oveCooSetpoint(      uExt(y=oveCooSet2_u), activate(y=oveCooSet2_activate)),
+      oveHCSet(      uExt(y=oveHCSet2_u), activate(y=oveHCSet2_activate)),
+    oveCCSet(      uExt(y=oveCC2_u), activate(y=oveCC2_activate)))),
     HVAC3(
-    oveHCSet(      uExt(y=oveHCSet3_u), activate(y=oveHCSet3_activate)),
-    oveCCSet(      uExt(y=oveCC3_u), activate(y=oveCC3_activate)),
     oveDamSet(      uExt(y=oveDSet3_u), activate(y=oveDSet3_activate)),
     oveFanSet(      uExt(y=oveVFRSet3_u), activate(y=oveVFRSet3_activate)),
     controls(
       oveHeaSetpoint(      uExt(y=oveHeaSet3_u), activate(y=oveHeaSet3_activate)),
-      oveCooSetpoint(      uExt(y=oveCooSet3_u), activate(y=oveCooSet3_activate)))),
+      oveCooSetpoint(      uExt(y=oveCooSet3_u), activate(y=oveCooSet3_activate)),
+      oveHCSet(      uExt(y=oveHCSet3_u), activate(y=oveHCSet3_activate)),
+    oveCCSet(      uExt(y=oveCC3_u), activate(y=oveCC3_activate)))),
     HVAC4(
-    oveHCSet(      uExt(y=oveHCSet4_u), activate(y=oveHCSet4_activate)),
-    oveCCSet(      uExt(y=oveCC4_u), activate(y=oveCC4_activate)),
     oveDamSet(      uExt(y=oveDSet4_u), activate(y=oveDSet4_activate)),
     oveFanSet(      uExt(y=oveVFRSet4_u), activate(y=oveVFRSet4_activate)),
     controls(
       oveHeaSetpoint(      uExt(y=oveHeaSet4_u), activate(y=oveHeaSet4_activate)),
-      oveCooSetpoint(      uExt(y=oveCooSet4_u), activate(y=oveCooSet4_activate)))))
+      oveCooSetpoint(      uExt(y=oveCooSet4_u), activate(y=oveCooSet4_activate)),
+      oveHCSet(      uExt(y=oveHCSet4_u), activate(y=oveHCSet4_activate)),
+    oveCCSet(      uExt(y=oveCC4_u), activate(y=oveCC4_activate)))))
     "Original model with overwrites";
+
       //oveZeroCommands(uExt(y=oveZero_u), activate(y=oveZero_activate))
       //oveZeroCommands(uExt(y=oveZero1_u), activate(y=oveZero1_activate))
       //oveZeroCommands(uExt(y=oveZero2_u), activate(y=oveZero2_activate))
@@ -1870,7 +1864,7 @@ end SOM3;
 
   annotation (uses(Modelica(version="3.2.3"), Buildings(version="8.0.0")),
       experiment(
-      StopTime=31622400,
+      StopTime=63072000,
       Interval=300,
       __Dymola_Algorithm="Dassl"),
     __Dymola_experimentFlags(
